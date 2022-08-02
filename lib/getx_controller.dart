@@ -36,7 +36,7 @@ class GetMainController extends GetxController {
     buoyLastData['site_id'] = {'id': strTemp[0]};
     buoyLastData['serial_no'] = {'sn': strTemp[1]};
     buoyLastData['datetime'] = {
-      'datetime': DateTime.parse('20' + strTemp[2] + 'T' + strTemp[3])
+      'datetime': DateTime.parse('20${strTemp[2]}T${strTemp[3]}')
     };
     buoyLastData['gps'] = {'latitude': strTemp[4], 'longitude': strTemp[5]};
     buoyLastData['battery'] = {'voltage': strTemp[strTemp.length - 3]};

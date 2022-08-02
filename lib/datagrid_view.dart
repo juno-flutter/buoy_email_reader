@@ -11,10 +11,10 @@ class DataGridView extends StatefulWidget {
   const DataGridView({Key? key}) : super(key: key);
 
   @override
-  _DataGridViewState createState() => _DataGridViewState();
+  DataGridViewState createState() => DataGridViewState();
 }
 
-class _DataGridViewState extends State<DataGridView> {
+class DataGridViewState extends State<DataGridView> {
   final GetMainController cm = Get.find();
   // String siteID = '';
   late BuoyDataSource buoyDataSource;
@@ -167,11 +167,11 @@ class _DataGridViewState extends State<DataGridView> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: setBackgroundColor(),
-        child: const Icon(Icons.arrow_back),
         onPressed: () {
           Get.back();
         },
         mini: false,
+        child: const Icon(Icons.arrow_back),
       ),
     );
   }

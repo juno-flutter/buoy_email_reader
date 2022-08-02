@@ -1,13 +1,16 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:enough_mail/enough_mail.dart';
 import 'package:intl/intl.dart';
-import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+// import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 // import 'dart:io';
 // import 'package:enough_mail/pop/pop_exception.dart';
 
 void printInfo(String ss) {
   var dt = DateFormat('y/M/d HH:mm:ss').format(DateTime.now());
-  print(dt + ' - ' + ss);
+  if (kDebugMode) {
+    print('$dt - $ss');
+  }
 }
 
 class DataView extends StatefulWidget {
@@ -110,7 +113,7 @@ class _DataView extends State<DataView> {
     if (text == null) {
       return dataRow;
     }
-    var bodyText = text.split('\r\n');
+    // var bodyText = text.split('\r\n');
     return dataRow;
   }
 
@@ -154,7 +157,7 @@ class _DataView extends State<DataView> {
   Widget displayBuoyDataWidget() {
     String? plainText = msg.decodeTextPlainPart();
     if (plainText != null) {
-      printInfo('plaintText = ' + plainText);
+      printInfo('plaintText = $plainText');
       final lines = plainText.split('\r\n');
       for (final line in lines) {
         if (line.startsWith('>')) {
@@ -200,11 +203,11 @@ class _DataView extends State<DataView> {
           child: displayBuoyDataWidget()),
       floatingActionButton: FloatingActionButton(
         backgroundColor: setBackgroundColor(),
-        child: const Icon(Icons.arrow_back),
         onPressed: () {
           Navigator.of(context).pop();
         },
         mini: false,
+        child: const Icon(Icons.arrow_back),
       ),
     );
   }

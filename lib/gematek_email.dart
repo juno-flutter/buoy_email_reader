@@ -1,5 +1,6 @@
 import 'package:enough_mail/enough_mail.dart';
 import 'package:flutter/foundation.dart';
+
 // import 'package:flutter/services.dart';
 // import 'package:flutter/material.dart';
 
@@ -32,8 +33,10 @@ class GematekEmail {
   }
 
   void _emailExistEvent(ImapMessagesExistEvent ev) {
-    print('newMessagesExists = ${ev.newMessagesExists}');
-    print('oldMessagesExists = ${ev.oldMessagesExists}');
+    if (kDebugMode) {
+      print('newMessagesExists = ${ev.newMessagesExists}');
+      print('oldMessagesExists = ${ev.oldMessagesExists}');
+    }
     int newMsg = ev.newMessagesExists;
     int oldMsg = ev.oldMessagesExists;
     if (newMsg <= oldMsg) {
@@ -71,7 +74,9 @@ class GematekEmail {
       _readCount = 5;
       _mailboxName = _systemSeaweed;
     }
-    print('systemName = $systemName');
+    if (kDebugMode) {
+      print('systemName = $systemName');
+    }
     return _readCount;
   }
 
@@ -83,11 +88,12 @@ class GematekEmail {
       // Mailbox mb = await _client.check();
       // print('MailBox = $mb');
       await _client.selectMailboxByPath(_mailboxName);
-      fetchResult =
-          await _client.fetchRecentMessages(messageCount: _readCount, criteria: 'BODY.PEEK[]');
+      fetchResult = await _client.fetchRecentMessages(messageCount: _readCount, criteria: 'BODY.PEEK[]');
       await _client.idleStart();
     } on ImapException catch (e) {
-      print('IMAP Fetch failed with $e');
+      if (kDebugMode) {
+        print('IMAP Fetch failed with $e');
+      }
     }
     dynamic listMsg;
     for (var message in fetchResult.messages) {
@@ -95,8 +101,7 @@ class GematekEmail {
       if (subject == null) {
         continue;
       }
-      if ((subject.startsWith(siteID) == true || subject.contains(siteID)) &&
-          subject.split(' ').length == 3) {
+      if ((subject.startsWith(siteID) == true || subject.contains(siteID)) && subject.split(' ').length == 3) {
         String? strTemp = message.decodeTextPlainPart();
         if (strTemp == null) {
           continue;
@@ -116,7 +121,9 @@ class GematekEmail {
         }
       }
     }
-    print('emailBody = $emailBody');
+    if (kDebugMode) {
+      print('emailBody = $emailBody');
+    }
     return emailBody;
   }
 }
