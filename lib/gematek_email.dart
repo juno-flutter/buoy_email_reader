@@ -6,8 +6,7 @@ import 'package:flutter/foundation.dart';
 class GematekEmail {
   late ImapClient _client;
   final String _userName = 'gematektest@gmail.com';
-  final String _password = 'system6229!';
-  // final String _password = 'yfuqrbqtnijgvkrq';
+  final String _password = 'jowjrfsohapwqgre';
   final String _imapServerHost = 'imap.gmail.com';
   final int _imapServerPort = 993;
   int _readCount = 5;

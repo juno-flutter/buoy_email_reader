@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'datagrid_view.dart';
 import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
 import 'getx_controller.dart';
+
 // import 'dart:io';
 // import 'package:gematek_buoy_email/data_view.dart';
 // import 'package:enough_mail/enough_mail.dart';
@@ -43,8 +44,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>
-    with WidgetsBindingObserver, TickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, TickerProviderStateMixin {
   final GetMainController cm = Get.find();
   late AnimationController _animationController;
 
@@ -81,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage>
     Get.offAll(() => MainPage());
   }
 
+  /*
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     //https://api.flutter.dev/flutter/dart-ui/AppLifecycleState-class.html
@@ -126,6 +127,7 @@ class _MyHomePageState extends State<MyHomePage>
       print('didChangeAppLifecycleState');
     }
   }
+*/
 
   @override
   Widget build(BuildContext context) {
@@ -144,13 +146,23 @@ class _MyHomePageState extends State<MyHomePage>
               //     .drive(ColorTween(begin: Colors.amber, end: Colors.purple)),
             ),
             SizedBox(height: 20),
-            Text('로딩중...',
-                style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    shadows: <Shadow>[Shadow(offset: Offset(4, 4), color: Colors.black26)],
-                    decorationStyle: TextDecorationStyle.dashed))
+            Text(
+              'Loading...',
+              style: TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.w400,
+                fontStyle: FontStyle.italic,
+                color: Colors.white,
+                shadows: <Shadow>[
+                  Shadow(
+                    offset: Offset(4, 4),
+                    color: Colors.black38,
+                    blurRadius: 3.0,
+                  ),
+                ],
+                // decorationStyle: TextDecorationStyle.dotted,
+              ),
+            ),
           ],
         ),
       ),
@@ -311,8 +323,7 @@ class MainPage extends StatelessWidget {
               onTap: () async {
                 SimpleFontelicoProgressDialog? dialog;
                 var type = SimpleFontelicoProgressDialogType.normal;
-                dialog ??=
-                    SimpleFontelicoProgressDialog(context: context, barrierDimisable: false);
+                dialog ??= SimpleFontelicoProgressDialog(context: context, barrierDimisable: false);
                 dialog.show(
                     message: 'iphone',
                     type: type,
