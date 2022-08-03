@@ -259,6 +259,24 @@ class MainPage extends StatelessWidget {
       'layer': 7,
       'system_name': '빈산소',
     },
+    'AI68': {
+      'id': 'AI68',
+      'name': '(AI68)',
+      'layer': 5,
+      'system_name': '빈산소',
+    },
+    'AI69': {
+      'id': 'AI69',
+      'name': '(AI69)',
+      'layer': 5,
+      'system_name': '빈산소',
+    },
+    'AI70': {
+      'id': 'AI70',
+      'name': '(AI70)',
+      'layer': 4,
+      'system_name': '빈산소',
+    },
     'BK51': {
       'id': 'BK51',
       'name': '기장 (BK51)',
