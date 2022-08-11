@@ -297,22 +297,24 @@ class MainPage extends StatelessWidget {
     },
   };
 
-  Text _subSettingSystemName(int i) {
+  bool _isNfrdi(int i) {
     String buoy = mapBuoyInfo[mapBuoyInfo.keys.toList()[i]]!['system_name'];
     if (buoy == cm.systemNameNfrdi) {
-      return Text(
-        buoy,
-        style: TextStyle(color: cm.colorNfrdi, fontWeight: FontWeight.bold),
-      );
+      return true;
     }
-    return Text(
-      buoy,
-      style: TextStyle(
-        color: cm.colorSeaweed,
-        fontWeight: FontWeight.bold,
-      ),
-    );
+    return false;
   }
+
+  // Text _subSettingSystemName(int i) {
+  //   return Text(
+  //     mapBuoyInfo[mapBuoyInfo.keys.toList()[i]]!['system_name'],
+  //     style: TextStyle(
+  //       color: _isNfrdi(i) ? Colors.white : Colors.black.withOpacity(0.6),
+  //       fontWeight: FontWeight.bold,
+  //       fontSize: 17.5,
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -328,13 +330,29 @@ class MainPage extends StatelessWidget {
         itemBuilder: (BuildContext context, int i) {
           var thisSiteInfo = mapBuoyInfo[mapBuoyInfo.keys.toList()[i]]!;
           return ListTile(
-              tileColor: Colors.white.withOpacity(0.95),
+              tileColor: Colors.white.withOpacity(1),
               contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _subSettingSystemName(i),
-                  Text(thisSiteInfo['name']),
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.white,
+                    foregroundImage: ExactAssetImage(_isNfrdi(i) ? 'assets/nifs.png' : 'assets/gijang.jpg'),
+                    // backgroundColor: _isNfrdi(i) ? cm.colorNfrdi : cm.colorSeaweed,
+                    // child: _subSettingSystemName(i),
+                  ),
+                  Text(
+                    _isNfrdi(i) ? cm.systemNameNfrdi : cm.systemNameSeaweed,
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: _isNfrdi(i) ? cm.colorNfrdi : cm.colorSeaweed,
+                    ),
+                  ),
+                  Text(
+                    thisSiteInfo['name'].toString(),
+                    style: const TextStyle(fontSize: 20),
+                  ),
                 ],
               ),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -343,16 +361,17 @@ class MainPage extends StatelessWidget {
                 var type = SimpleFontelicoProgressDialogType.normal;
                 dialog ??= SimpleFontelicoProgressDialog(context: context, barrierDimisable: false);
                 dialog.show(
-                    message: 'iphone',
-                    type: type,
-                    horizontal: true,
-                    width: 150.0,
-                    height: 75.0,
-                    hideText: true,
-                    indicatorColor: Colors.blue);
+                  message: 'iphone',
+                  type: type,
+                  horizontal: true,
+                  width: 150.0,
+                  height: 75.0,
+                  hideText: true,
+                  indicatorColor: Colors.blue,
+                );
 
                 cm.client.setCountAndMailbox(systemName: thisSiteInfo['system_name']);
-                var siteID = thisSiteInfo['id'];
+                var siteID = thisSiteInfo['id'].toString();
                 // print(siteID);
                 await cm.client.getEmail(siteID);
                 cm.siteInfo = thisSiteInfo;
@@ -365,9 +384,10 @@ class MainPage extends StatelessWidget {
                 // }));
               });
         },
-        separatorBuilder: (BuildContext context, int idx) => const Divider(
+        separatorBuilder: (BuildContext context, int idx) => Divider(
           height: 10,
           thickness: 0,
+          color: Colors.grey.shade300,
           // color: null,
         ),
       ),
