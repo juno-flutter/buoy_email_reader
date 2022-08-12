@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: lightColorScheme,
-        scrollbarTheme: scrollbarThemeData(),
+        // scrollbarTheme: scrollbarThemeData(),
         fontFamily: 'NanumGothic',
         // primarySwatch: Colors.blue,
       ),
@@ -353,7 +353,8 @@ class MainPage extends StatelessWidget {
             ),
           ),
           // centerTitle: true,
-          scrolledUnderElevation: 20,
+          scrolledUnderElevation: 15,
+          elevation: 15,
         ),
         body: ListView.separated(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -385,13 +386,17 @@ class MainPage extends StatelessWidget {
                     Text(
                       _isNfrdi(i) ? cm.systemNameNfrdi : cm.systemNameSeaweed,
                       style: TextStyle(
+                        fontFamily: 'NanumGothic',
                         fontSize: 20,
                         color: _isNfrdi(i) ? cm.colorNfrdi : cm.colorSeaweed,
                       ),
                     ),
                     Text(
                       thisSiteInfo['name'].toString(),
-                      style: const TextStyle(fontSize: 20),
+                      style: const TextStyle(
+                        fontFamily: 'NanumGothic',
+                        fontSize: 20,
+                      ),
                     ),
                   ],
                 ),
@@ -408,12 +413,15 @@ class MainPage extends StatelessWidget {
                   dialog ??= SimpleFontelicoProgressDialog(context: context, barrierDimisable: false);
                   dialog.show(
                     message: '서버로 부터 응답을\n기다리는 중입니다.',
-                    textStyle: const TextStyle(fontSize: 18),
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'NanumGothic',
+                    ),
                     type: type,
                     horizontal: false,
-                    width: 180.0,
-                    height: 180.0,
-                    separation: 30,
+                    width: 200.0,
+                    height: 200.0,
+                    separation: 40,
                     elevation: 0,
                     radius: 25,
                     hideText: false,

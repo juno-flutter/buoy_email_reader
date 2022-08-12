@@ -156,12 +156,30 @@ class DataGridViewState extends State<DataGridView> {
         title: Row(
           children: [
             CircleAvatar(
-                foregroundImage: ExactAssetImage(cm.siteInfo['system_name'].toString() == cm.systemNameNfrdi ? 'assets/nifs.png' : 'assets/gijang.jpg'),
+              foregroundImage: ExactAssetImage(cm.siteInfo['system_name'].toString() == cm.systemNameNfrdi
+                  ? 'assets/nifs.png'
+                  : 'assets/gijang.jpg'),
             ),
-            const SizedBox(width: 10,),
-            Text(cm.siteInfo['system_name'].toString()),
-            const SizedBox(width: 20,),
-            Text(cm.siteInfo['name'].toString()),
+            const SizedBox(
+              width: 15,
+            ),
+            Text(
+              cm.siteInfo['system_name'].toString(),
+              style: const TextStyle(
+                fontFamily: 'NanumGothic',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Text(
+              cm.siteInfo['name'].toString(),
+              style: const TextStyle(
+                fontFamily: 'NanumGothic',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
       ),
@@ -238,28 +256,28 @@ class BuoyDataSource extends DataGridSource {
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
         cells: row.getCells().map<Widget>((e) {
-          Color getColor() {
-            double data = double.parse(e.value);
-            if (data <= 0) {
-              return Colors.redAccent;
-            }
-            return Colors.transparent;
-          }
+      Color getColor() {
+        double data = double.parse(e.value);
+        if (data <= 0) {
+          return Colors.redAccent;
+        }
+        return Colors.transparent;
+      }
 
-          TextStyle? getTextStyle() {
-            double data = double.parse(e.value.toString());
-            if (data <= 0) {
-              return const TextStyle(color: Colors.white, fontSize: 16);
-            }
-            return const TextStyle(fontSize: 16);
-          }
+      TextStyle? getTextStyle() {
+        double data = double.parse(e.value.toString());
+        if (data <= 0) {
+          return const TextStyle(color: Colors.white, fontSize: 16);
+        }
+        return const TextStyle(fontSize: 16);
+      }
 
-          return Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.all(8.0),
-            color: getColor(),
-            child: Text(e.value.toString(), style: getTextStyle()),
-          );
-        }).toList());
+      return Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(8.0),
+        color: getColor(),
+        child: Text(e.value.toString(), style: getTextStyle()),
+      );
+    }).toList());
   }
 }
