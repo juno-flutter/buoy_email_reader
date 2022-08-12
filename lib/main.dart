@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'datagrid_view.dart';
 import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
 import 'getx_controller.dart';
+import 'package:buoy_email_reader/color_schemes.g.dart';
 
 // import 'dart:io';
 // import 'package:gematek_buoy_email/data_view.dart';
@@ -23,13 +24,26 @@ class MyApp extends StatelessWidget {
 
   final GetMainController c = Get.put(GetMainController());
 
+  ScrollbarThemeData scrollbarThemeData() {
+    return ScrollbarThemeData(
+        thumbVisibility: MaterialStateProperty.all(true),
+        thickness: MaterialStateProperty.all(10),
+        thumbColor: MaterialStateProperty.all(Colors.red[100]),
+        radius: const Radius.circular(10),
+        minThumbLength: 50);
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '지마텍 부이 자료 표출앱',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        useMaterial3: true,
+        colorScheme: lightColorScheme,
+        scrollbarTheme: scrollbarThemeData(),
+        fontFamily: 'NanumGothic',
+        // primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: '지마텍 부이 자료'),
     );
@@ -132,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -318,77 +332,116 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade300,
-      appBar: AppBar(
-        title: const Text('지마텍 부이 자료'),
-        centerTitle: true,
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        image: DecorationImage(
+          fit: BoxFit.fitWidth,
+          image: AssetImage('assets/kg.png'),
+          opacity: 0.2,
+        ),
       ),
-      body: ListView.separated(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        itemCount: mapBuoyInfo.length,
-        itemBuilder: (BuildContext context, int i) {
-          var thisSiteInfo = mapBuoyInfo[mapBuoyInfo.keys.toList()[i]]!;
-          return ListTile(
-              tileColor: Colors.white.withOpacity(1),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Colors.white,
-                    foregroundImage: ExactAssetImage(_isNfrdi(i) ? 'assets/nifs.png' : 'assets/gijang.jpg'),
-                    // backgroundColor: _isNfrdi(i) ? cm.colorNfrdi : cm.colorSeaweed,
-                    // child: _subSettingSystemName(i),
-                  ),
-                  Text(
-                    _isNfrdi(i) ? cm.systemNameNfrdi : cm.systemNameSeaweed,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: _isNfrdi(i) ? cm.colorNfrdi : cm.colorSeaweed,
-                    ),
-                  ),
-                  Text(
-                    thisSiteInfo['name'].toString(),
-                    style: const TextStyle(fontSize: 20),
-                  ),
-                ],
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: const Text(
+            '지마텍 부이 자료',
+            style: TextStyle(
+              fontFamily: 'NanumGothic',
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+            ),
+          ),
+          // centerTitle: true,
+          scrolledUnderElevation: 20,
+        ),
+        body: ListView.separated(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          itemCount: mapBuoyInfo.length,
+          itemBuilder: (BuildContext context, int i) {
+            var thisSiteInfo = mapBuoyInfo[mapBuoyInfo.keys.toList()[i]]!;
+            return Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                // side: BorderSide(
+                //   color: Colors.grey.shade300,
+                // ),
               ),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              onTap: () async {
-                SimpleFontelicoProgressDialog? dialog;
-                var type = SimpleFontelicoProgressDialogType.normal;
-                dialog ??= SimpleFontelicoProgressDialog(context: context, barrierDimisable: false);
-                dialog.show(
-                  message: 'iphone',
-                  type: type,
-                  horizontal: true,
-                  width: 150.0,
-                  height: 75.0,
-                  hideText: true,
-                  indicatorColor: Colors.blue,
-                );
+              elevation: 9,
+              shadowColor: Colors.black,
+              child: ListTile(
+                // tileColor: Colors.grey.shade100,
+                contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 2),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Colors.white,
+                      foregroundImage: ExactAssetImage(_isNfrdi(i) ? 'assets/nifs.png' : 'assets/gijang.jpg'),
+                      // backgroundColor: _isNfrdi(i) ? cm.colorNfrdi : cm.colorSeaweed,
+                      // child: _subSettingSystemName(i),
+                    ),
+                    Text(
+                      _isNfrdi(i) ? cm.systemNameNfrdi : cm.systemNameSeaweed,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: _isNfrdi(i) ? cm.colorNfrdi : cm.colorSeaweed,
+                      ),
+                    ),
+                    Text(
+                      thisSiteInfo['name'].toString(),
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+                // shape: RoundedRectangleBorder(
+                //   borderRadius: BorderRadius.circular(10),
+                //   side: const BorderSide(
+                //     color: Colors.black26,
+                //     width: 1.5,
+                //   ),
+                // ),
+                onTap: () async {
+                  SimpleFontelicoProgressDialog? dialog;
+                  var type = SimpleFontelicoProgressDialogType.normal;
+                  dialog ??= SimpleFontelicoProgressDialog(context: context, barrierDimisable: false);
+                  dialog.show(
+                    message: '서버로 부터 응답을\n기다리는 중입니다.',
+                    textStyle: const TextStyle(fontSize: 18),
+                    type: type,
+                    horizontal: false,
+                    width: 180.0,
+                    height: 180.0,
+                    separation: 30,
+                    elevation: 0,
+                    radius: 25,
+                    hideText: false,
+                    indicatorColor: _isNfrdi(i) ? cm.colorNfrdi : cm.colorSeaweed,
+                  );
 
-                cm.client.setCountAndMailbox(systemName: thisSiteInfo['system_name']);
-                var siteID = thisSiteInfo['id'].toString();
-                // print(siteID);
-                await cm.client.getEmail(siteID);
-                cm.siteInfo = thisSiteInfo;
+                  cm.client.setCountAndMailbox(systemName: thisSiteInfo['system_name']);
+                  var siteID = thisSiteInfo['id'].toString();
+                  // print(siteID);
+                  await cm.client.getEmail(siteID);
+                  cm.siteInfo = thisSiteInfo;
 
-                dialog.hide();
+                  dialog.hide();
 
-                Get.to(() => const DataGridView(), transition: Transition.leftToRightWithFade);
-                // Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                //   return const DataGridView();
-                // }));
-              });
-        },
-        separatorBuilder: (BuildContext context, int idx) => Divider(
-          height: 10,
-          thickness: 0,
-          color: Colors.grey.shade300,
-          // color: null,
+                  Get.to(() => const DataGridView(), transition: Transition.leftToRightWithFade);
+                  // Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                  //   return const DataGridView();
+                  // }));
+                },
+              ),
+            );
+          },
+          separatorBuilder: (BuildContext context, int idx) => const Divider(
+            height: 5,
+            thickness: 0,
+            color: Colors.transparent,
+            // color: null,
+          ),
         ),
       ),
     );

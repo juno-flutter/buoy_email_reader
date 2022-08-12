@@ -10,8 +10,8 @@ class GetMainController extends GetxController {
   List<SensorDataForGrid> listSensorData = [];
   final String systemNameNfrdi = '빈산소';
   final String systemNameSeaweed = '해조류';
-  final Color colorSeaweed = Colors.amber.withOpacity(1);
-  final Color colorNfrdi = Colors.blue;
+  final Color colorSeaweed = Colors.amber;
+  final Color colorNfrdi = Color.fromRGBO(0, 164, 173, 1);
 
   void clearBuoyLastData() {
     buoyLastData.clear();
