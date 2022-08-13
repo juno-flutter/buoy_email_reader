@@ -146,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -154,7 +154,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
             CircularProgressIndicator(
               color: Colors.white54,
               // backgroundColor: cm.colorNfrdi,
-              strokeWidth: 5,
+              strokeWidth: 3,
               // value: _animationController.value,
               // valueColor: _animationController
               //     .drive(ColorTween(begin: Colors.amber, end: Colors.purple)),
@@ -164,7 +164,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
               'Loading...',
               style: TextStyle(
                 fontSize: 40,
-                fontWeight: FontWeight.w400,
+                fontFamily: 'NanumGothic',
+                fontWeight: FontWeight.bold,
                 fontStyle: FontStyle.italic,
                 color: Colors.white,
                 shadows: <Shadow>[
@@ -189,6 +190,24 @@ class MainPage extends StatelessWidget {
 
   final GetMainController cm = Get.find();
   static const Map<String, Map<String, dynamic>> mapBuoyInfo = {
+    'BK51': {
+      'id': 'BK51',
+      'name': '기장 (BK51)',
+      'layer': 4,
+      'system_name': '해조류',
+    },
+    'BK52': {
+      'id': 'BK52',
+      'name': '일광 (BK52)',
+      'layer': 4,
+      'system_name': '해조류',
+    },
+    'BK53': {
+      'id': 'BK53',
+      'name': '장안 (BK53)',
+      'layer': 4,
+      'system_name': '해조류',
+    },
     'AI51': {
       'id': 'AI51',
       'name': '고성1 (AI51)',
@@ -291,24 +310,6 @@ class MainPage extends StatelessWidget {
       'layer': 4,
       'system_name': '빈산소',
     },
-    'BK51': {
-      'id': 'BK51',
-      'name': '기장 (BK51)',
-      'layer': 4,
-      'system_name': '해조류',
-    },
-    'BK52': {
-      'id': 'BK52',
-      'name': '일광 (BK52)',
-      'layer': 4,
-      'system_name': '해조류',
-    },
-    'BK53': {
-      'id': 'BK53',
-      'name': '장안 (BK53)',
-      'layer': 4,
-      'system_name': '해조류',
-    },
   };
 
   bool _isNfrdi(int i) {
@@ -357,13 +358,13 @@ class MainPage extends StatelessWidget {
           elevation: 15,
         ),
         body: ListView.separated(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           itemCount: mapBuoyInfo.length,
           itemBuilder: (BuildContext context, int i) {
             var thisSiteInfo = mapBuoyInfo[mapBuoyInfo.keys.toList()[i]]!;
             return Card(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(60),
                 // side: BorderSide(
                 //   color: Colors.grey.shade300,
                 // ),
@@ -371,8 +372,12 @@ class MainPage extends StatelessWidget {
               elevation: 9,
               shadowColor: Colors.black,
               child: ListTile(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(60),
+                ),
                 // tileColor: Colors.grey.shade100,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 2),
+                tileColor: Colors.white,
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -412,7 +417,7 @@ class MainPage extends StatelessWidget {
                   var type = SimpleFontelicoProgressDialogType.normal;
                   dialog ??= SimpleFontelicoProgressDialog(context: context, barrierDimisable: false);
                   dialog.show(
-                    message: '서버로 부터 응답을\n기다리는 중입니다.',
+                    message: '서버의 응답을\n기다리는 중입니다.',
                     textStyle: const TextStyle(
                       fontSize: 18,
                       fontFamily: 'NanumGothic',
@@ -422,7 +427,7 @@ class MainPage extends StatelessWidget {
                     width: 200.0,
                     height: 200.0,
                     separation: 40,
-                    elevation: 0,
+                    // elevation: 40,
                     radius: 25,
                     hideText: false,
                     indicatorColor: _isNfrdi(i) ? cm.colorNfrdi : cm.colorSeaweed,
@@ -435,11 +440,14 @@ class MainPage extends StatelessWidget {
                   cm.siteInfo = thisSiteInfo;
 
                   dialog.hide();
+                  await Future.delayed(const Duration(milliseconds: 100));
 
-                  Get.to(() => const DataGridView(), transition: Transition.leftToRightWithFade);
-                  // Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                  //   return const DataGridView();
-                  // }));
+                  Get.to(
+                    () => const DataGridView(),
+                    transition: Transition.leftToRight,
+                    duration: const Duration(milliseconds: 800),
+                    curve: Curves.easeInOutExpo,
+                  );
                 },
               ),
             );
