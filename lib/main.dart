@@ -6,6 +6,7 @@ import 'datagrid_view.dart';
 import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
 import 'getx_controller.dart';
 import 'package:buoy_email_reader/color_schemes.g.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // import 'dart:io';
 // import 'package:gematek_buoy_email/data_view.dart';
@@ -40,10 +41,15 @@ class MyApp extends StatelessWidget {
       title: '지마텍 부이 자료 표출앱',
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: lightColorScheme,
+        // colorScheme: lightColorScheme,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xff00ffff),
+          brightness: Brightness.light,
+        ),
         // scrollbarTheme: scrollbarThemeData(),
         fontFamily: 'NanumGothic',
         // primarySwatch: Colors.blue,
+        textTheme: GoogleFonts.nanumGothicTextTheme(Theme.of(context).textTheme),
       ),
       home: const MyHomePage(title: '지마텍 부이 자료'),
     );
@@ -60,22 +66,23 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, TickerProviderStateMixin {
   final GetMainController cm = Get.find();
-  late AnimationController _animationController;
+
+  // late AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addObserver(this);
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-      reverseDuration: const Duration(milliseconds: 300),
-      // value: 50,
-    )..addListener(() {
-        setState(() {});
-      });
-    _animationController.repeat(reverse: true);
+    // WidgetsBinding.instance.addObserver(this);
+    // _animationController = AnimationController(
+    //   vsync: this,
+    //   duration: const Duration(milliseconds: 300),
+    //   reverseDuration: const Duration(milliseconds: 300),
+    //   // value: 50,
+    // )..addListener(() {
+    //     setState(() {});
+    //   });
+    // _animationController.repeat(reverse: true);
     _init();
   }
 
@@ -83,14 +90,24 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
   void dispose() {
     //앱 상태 변경 이벤트 해제
     //문제는 앱 종료시 dispose함수가 호출되지 않아 해당 함수를 실행 할 수가 없다.
-    WidgetsBinding.instance.removeObserver(this);
-    _animationController.dispose();
+    // WidgetsBinding.instance.removeObserver(this);
+    // _animationController.dispose();
     super.dispose();
   }
+
+  // void _subInit() {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => MainPage(),
+  //     ),
+  //   );
+  // }
 
   void _init() async {
     cm.client = GematekEmail();
     await cm.client.login();
+    // _subInit();
     // cm.client.sleepStart();
     Get.offAll(() => MainPage());
   }
@@ -146,20 +163,20 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
+          children: <Widget>[
             CircularProgressIndicator(
-              color: Colors.white54,
-              // backgroundColor: cm.colorNfrdi,
+              color: Theme.of(context).colorScheme.onPrimary,
+              // color: Colors.white54,
               strokeWidth: 3,
               // value: _animationController.value,
               // valueColor: _animationController
               //     .drive(ColorTween(begin: Colors.amber, end: Colors.purple)),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               'Loading...',
               style: TextStyle(
@@ -167,11 +184,13 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
                 fontFamily: 'NanumGothic',
                 fontWeight: FontWeight.bold,
                 fontStyle: FontStyle.italic,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.onPrimary,
+                // color: Colors.white,
                 shadows: <Shadow>[
                   Shadow(
-                    offset: Offset(4, 4),
-                    color: Colors.black38,
+                    offset: const Offset(4, 4),
+                    color: Theme.of(context).colorScheme.shadow,
+                    // color: Colors.black38,
                     blurRadius: 3.0,
                   ),
                 ],
@@ -334,26 +353,33 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        image: DecorationImage(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.onPrimary,
+        // color: Colors.white,
+        image: const DecorationImage(
           fit: BoxFit.fitWidth,
           image: AssetImage('assets/kg.png'),
-          opacity: 0.2,
+          opacity: 0.12,
         ),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: const Text(
+          leading: null,
+          backgroundColor: Theme.of(Get.context!).colorScheme.primary,
+          centerTitle: true,
+          title: Text(
             '지마텍 부이 자료',
-            style: TextStyle(
-              fontFamily: 'NanumGothic',
+            style: GoogleFonts.nanumGothic(
               fontWeight: FontWeight.bold,
               fontSize: 24,
             ),
+            // style: TextStyle(
+            //   fontFamily: 'NanumGothic',
+            //   fontWeight: FontWeight.bold,
+            //   fontSize: 24,
+            // ),
           ),
-          // centerTitle: true,
           scrolledUnderElevation: 15,
           elevation: 15,
         ),

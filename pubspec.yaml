@@ -39,6 +39,7 @@ dependencies:
   syncfusion_flutter_datagrid: ^20.2.39
   simple_fontellico_progress_dialog: ^0.2.1
   get: ^4.6.5
+  google_fonts: ^3.0.1
 
 dev_dependencies:
   flutter_test:
