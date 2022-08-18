@@ -207,6 +207,21 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
 class MainPage extends StatelessWidget {
   MainPage({Key? key}) : super(key: key);
 
+  // MainPage({Key? key}) : super(key: key){
+  //   Get.changeTheme(ThemeData(
+  //     useMaterial3: true,
+  //     // colorScheme: lightColorScheme,
+  //     colorScheme: ColorScheme.fromSeed(
+  //       seedColor: const Color(0xff00ffff),
+  //       brightness: Brightness.light,
+  //     ),
+  //     // scrollbarTheme: scrollbarThemeData(),
+  //     fontFamily: 'NanumGothic',
+  //     // primarySwatch: Colors.blue,
+  //     // textTheme: GoogleFonts.nanumGothicTextTheme(Theme.of(context).textTheme),
+  //   ));
+  // }
+
   final GetMainController cm = Get.find();
   static const Map<String, Map<String, dynamic>> mapBuoyInfo = {
     'BK51': {
@@ -400,19 +415,35 @@ class MainPage extends StatelessWidget {
               child: ListTile(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(60),
+                  side: BorderSide(
+                    color: Colors.grey.shade100,
+                    width: 2,
+                  ),
                 ),
                 // tileColor: Colors.grey.shade100,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 2),
                 tileColor: Colors.white,
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     CircleAvatar(
-                      radius: 30,
+                      radius: 27,
                       backgroundColor: Colors.white,
-                      foregroundImage: ExactAssetImage(_isNfrdi(i) ? 'assets/nifs.png' : 'assets/gijang.jpg'),
-                      // backgroundColor: _isNfrdi(i) ? cm.colorNfrdi : cm.colorSeaweed,
-                      // child: _subSettingSystemName(i),
+                      backgroundImage: ExactAssetImage(
+                        _isNfrdi(i) ? 'assets/nifs.png' : 'assets/gijang.jpg',
+                      ),
+
+                      // Circle Outline
+                      // child: Container(
+                      //   decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(27),
+                      //     border: Border.all(
+                      //       color: Colors.grey.shade400,
+                      //       width: 2.0,
+                      //     ),
+                      //   ),
+                      // ),
                     ),
                     Text(
                       _isNfrdi(i) ? cm.systemNameNfrdi : cm.systemNameSeaweed,
