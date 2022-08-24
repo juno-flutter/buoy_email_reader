@@ -207,21 +207,6 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
 class MainPage extends StatelessWidget {
   MainPage({Key? key}) : super(key: key);
 
-  // MainPage({Key? key}) : super(key: key){
-  //   Get.changeTheme(ThemeData(
-  //     useMaterial3: true,
-  //     // colorScheme: lightColorScheme,
-  //     colorScheme: ColorScheme.fromSeed(
-  //       seedColor: const Color(0xff00ffff),
-  //       brightness: Brightness.light,
-  //     ),
-  //     // scrollbarTheme: scrollbarThemeData(),
-  //     fontFamily: 'NanumGothic',
-  //     // primarySwatch: Colors.blue,
-  //     // textTheme: GoogleFonts.nanumGothicTextTheme(Theme.of(context).textTheme),
-  //   ));
-  // }
-
   final GetMainController cm = Get.find();
   static const Map<String, Map<String, dynamic>> mapBuoyInfo = {
     'BK51': {
@@ -398,122 +383,112 @@ class MainPage extends StatelessWidget {
           scrolledUnderElevation: 15,
           elevation: 15,
         ),
-        body: ListView.separated(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-          itemCount: mapBuoyInfo.length,
-          itemBuilder: (BuildContext context, int i) {
-            var thisSiteInfo = mapBuoyInfo[mapBuoyInfo.keys.toList()[i]]!;
-            return Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(60),
-                // side: BorderSide(
-                //   color: Colors.grey.shade300,
-                // ),
-              ),
-              elevation: 9,
-              shadowColor: Colors.black,
-              child: ListTile(
+        body: Scrollbar(
+          // trackVisibility: true,
+          thickness: 8,
+          radius: const Radius.circular(8),
+          // thumbVisibility: true,
+          child: ListView.separated(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            itemCount: mapBuoyInfo.length,
+            itemBuilder: (BuildContext context, int i) {
+              var thisSiteInfo = mapBuoyInfo[mapBuoyInfo.keys.toList()[i]]!;
+              return Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(60),
-                  side: BorderSide(
-                    color: Colors.grey.shade100,
-                    width: 2,
+                  // side: BorderSide(
+                  //   color: Colors.grey.shade300,
+                  // ),
+                ),
+                elevation: 9,
+                shadowColor: Colors.black,
+                child: ListTile(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(60),
                   ),
-                ),
-                // tileColor: Colors.grey.shade100,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 2),
-                tileColor: Colors.white,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 27,
-                      backgroundColor: Colors.white,
-                      backgroundImage: ExactAssetImage(
-                        _isNfrdi(i) ? 'assets/nifs.png' : 'assets/gijang.jpg',
+                  // tileColor: Colors.grey.shade100,
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 2),
+                  tileColor: Colors.white,
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundColor: Colors.white,
+                        foregroundImage: ExactAssetImage(_isNfrdi(i) ? 'assets/nifs.png' : 'assets/gijang.jpg'),
+                        // backgroundColor: _isNfrdi(i) ? cm.colorNfrdi : cm.colorSeaweed,
+                        // child: _subSettingSystemName(i),
                       ),
-
-                      // Circle Outline
-                      // child: Container(
-                      //   decoration: BoxDecoration(
-                      //     borderRadius: BorderRadius.circular(27),
-                      //     border: Border.all(
-                      //       color: Colors.grey.shade400,
-                      //       width: 2.0,
-                      //     ),
-                      //   ),
-                      // ),
-                    ),
-                    Text(
-                      _isNfrdi(i) ? cm.systemNameNfrdi : cm.systemNameSeaweed,
-                      style: TextStyle(
+                      Text(
+                        _isNfrdi(i) ? cm.systemNameNfrdi : cm.systemNameSeaweed,
+                        style: TextStyle(
+                          fontFamily: 'NanumGothic',
+                          fontSize: 20,
+                          color: _isNfrdi(i) ? cm.colorNfrdi : cm.colorSeaweed,
+                        ),
+                      ),
+                      Text(
+                        thisSiteInfo['name'].toString(),
+                        style: const TextStyle(
+                          fontFamily: 'NanumGothic',
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                  // shape: RoundedRectangleBorder(
+                  //   borderRadius: BorderRadius.circular(10),
+                  //   side: const BorderSide(
+                  //     color: Colors.black26,
+                  //     width: 1.5,
+                  //   ),
+                  // ),
+                  onTap: () async {
+                    SimpleFontelicoProgressDialog? dialog;
+                    var type = SimpleFontelicoProgressDialogType.normal;
+                    dialog ??= SimpleFontelicoProgressDialog(context: context, barrierDimisable: false);
+                    dialog.show(
+                      message: '서버의 응답을\n기다리는 중입니다.',
+                      textStyle: const TextStyle(
+                        fontSize: 18,
                         fontFamily: 'NanumGothic',
-                        fontSize: 20,
-                        color: _isNfrdi(i) ? cm.colorNfrdi : cm.colorSeaweed,
                       ),
-                    ),
-                    Text(
-                      thisSiteInfo['name'].toString(),
-                      style: const TextStyle(
-                        fontFamily: 'NanumGothic',
-                        fontSize: 20,
-                      ),
-                    ),
-                  ],
+                      type: type,
+                      horizontal: false,
+                      width: 200.0,
+                      height: 200.0,
+                      separation: 40,
+                      // elevation: 40,
+                      radius: 25,
+                      hideText: false,
+                      indicatorColor: _isNfrdi(i) ? cm.colorNfrdi : cm.colorSeaweed,
+                    );
+
+                    cm.client.setCountAndMailbox(systemName: thisSiteInfo['system_name']);
+                    var siteID = thisSiteInfo['id'].toString();
+                    // print(siteID);
+                    await cm.client.getEmail(siteID);
+                    cm.siteInfo = thisSiteInfo;
+
+                    dialog.hide();
+                    await Future.delayed(const Duration(milliseconds: 100));
+
+                    Get.to(
+                      () => const DataGridView(),
+                      transition: Transition.leftToRight,
+                      duration: const Duration(milliseconds: 800),
+                      curve: Curves.easeInOutExpo,
+                    );
+                  },
                 ),
-                // shape: RoundedRectangleBorder(
-                //   borderRadius: BorderRadius.circular(10),
-                //   side: const BorderSide(
-                //     color: Colors.black26,
-                //     width: 1.5,
-                //   ),
-                // ),
-                onTap: () async {
-                  SimpleFontelicoProgressDialog? dialog;
-                  var type = SimpleFontelicoProgressDialogType.normal;
-                  dialog ??= SimpleFontelicoProgressDialog(context: context, barrierDimisable: false);
-                  dialog.show(
-                    message: '서버의 응답을\n기다리는 중입니다.',
-                    textStyle: const TextStyle(
-                      fontSize: 18,
-                      fontFamily: 'NanumGothic',
-                    ),
-                    type: type,
-                    horizontal: false,
-                    width: 200.0,
-                    height: 200.0,
-                    separation: 40,
-                    // elevation: 40,
-                    radius: 25,
-                    hideText: false,
-                    indicatorColor: _isNfrdi(i) ? cm.colorNfrdi : cm.colorSeaweed,
-                  );
-
-                  cm.client.setCountAndMailbox(systemName: thisSiteInfo['system_name']);
-                  var siteID = thisSiteInfo['id'].toString();
-                  // print(siteID);
-                  await cm.client.getEmail(siteID);
-                  cm.siteInfo = thisSiteInfo;
-
-                  dialog.hide();
-                  await Future.delayed(const Duration(milliseconds: 100));
-
-                  Get.to(
-                    () => const DataGridView(),
-                    transition: Transition.leftToRight,
-                    duration: const Duration(milliseconds: 800),
-                    curve: Curves.easeInOutExpo,
-                  );
-                },
-              ),
-            );
-          },
-          separatorBuilder: (BuildContext context, int idx) => const Divider(
-            height: 5,
-            thickness: 0,
-            color: Colors.transparent,
-            // color: null,
+              );
+            },
+            separatorBuilder: (BuildContext context, int idx) => const Divider(
+              height: 5,
+              thickness: 0,
+              color: Colors.transparent,
+              // color: null,
+            ),
           ),
         ),
       ),

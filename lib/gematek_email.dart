@@ -18,6 +18,7 @@ class GematekEmail {
 
   GematekEmail() {
     _client = ImapClient(
+      logName: 'gLog',
       isLogEnabled: true,
       // connectionTimeout: const Duration(seconds: 15),
     );
@@ -26,10 +27,12 @@ class GematekEmail {
   }
 
   Future<void> _emailConnectionLostEvent(ImapConnectionLostEvent ev) async {
+    if (kDebugMode) {
+      print('${DateTime.now()} - Connection Lost');
+    }
     // await _client.logout();
-    await _client.disconnect();
+    // await _client.disconnect();
     await login();
-    // SystemNavigator.pop();
   }
 
   void _emailExistEvent(ImapMessagesExistEvent ev) {
@@ -37,11 +40,11 @@ class GematekEmail {
       print('newMessagesExists = ${ev.newMessagesExists}');
       print('oldMessagesExists = ${ev.oldMessagesExists}');
     }
-    int newMsg = ev.newMessagesExists;
-    int oldMsg = ev.oldMessagesExists;
-    if (newMsg <= oldMsg) {
-      return;
-    }
+    // int newMsg = ev.newMessagesExists;
+    // int oldMsg = ev.oldMessagesExists;
+    // if (newMsg <= oldMsg) {
+    //   return;
+    // }
   }
 
   void sleepStart() {
