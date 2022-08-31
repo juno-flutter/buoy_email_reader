@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'datagrid_view.dart';
 import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
 import 'getx_controller.dart';
-import 'package:buoy_email_reader/color_schemes.g.dart';
+// import 'package:buoy_email_reader/color_schemes.g.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // import 'dart:io';
@@ -17,7 +17,8 @@ import 'package:google_fonts/google_fonts.dart';
 // import 'package:gematek_buoy_email/data_view.dart';
 
 void main() {
-  runApp(GetMaterialApp(home: MyApp()));
+  // runApp(GetMaterialApp(home: MyApp()));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -37,17 +38,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: '지마텍 부이 자료 표출앱',
       theme: ThemeData(
         useMaterial3: true,
+        // scrollbarTheme: scrollbarThemeData(),
         // colorScheme: lightColorScheme,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xff00ffff),
-          brightness: Brightness.light,
+          seedColor: const Color(0xff00706c),
+          // brightness: Brightness.light,
         ),
         // scrollbarTheme: scrollbarThemeData(),
-        fontFamily: 'NanumGothic',
+        // fontFamily: 'NanumGothic',
         // primarySwatch: Colors.blue,
         textTheme: GoogleFonts.nanumGothicTextTheme(Theme.of(context).textTheme),
       ),
@@ -355,33 +357,35 @@ class MainPage extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.onPrimary,
-        // color: Colors.white,
-        image: const DecorationImage(
-          fit: BoxFit.fitWidth,
-          image: AssetImage('assets/kg.png'),
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: const AssetImage('assets/kg.png'),
           opacity: 0.12,
+          colorFilter: ColorFilter.mode(Colors.grey.shade200, BlendMode.dstOver),
         ),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          leading: null,
-          backgroundColor: Theme.of(Get.context!).colorScheme.primary,
+          // leading: null,
+          backgroundColor: Theme.of(context).colorScheme.primary,
           centerTitle: true,
           title: Text(
             '지마텍 부이 자료',
-            style: GoogleFonts.nanumGothic(
-              fontWeight: FontWeight.bold,
-              fontSize: 24,
-            ),
-            // style: TextStyle(
-            //   fontFamily: 'NanumGothic',
+            // style: GoogleFonts.nanumGothic(
             //   fontWeight: FontWeight.bold,
             //   fontSize: 24,
             // ),
+            style: TextStyle(
+              // fontFamily: 'NanumGothic',
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
           ),
-          scrolledUnderElevation: 15,
-          elevation: 15,
+          shadowColor: Theme.of(context).colorScheme.shadow,
+          scrolledUnderElevation: 10,
+          elevation: 10,
         ),
         body: Scrollbar(
           // trackVisibility: true,

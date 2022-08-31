@@ -45,19 +45,19 @@ class DataGridViewState extends State<DataGridView> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Text(
-          '풍향 : $wd °',
+          '풍향: $wd°',
           style: const TextStyle(fontSize: fontSize),
         ),
         Text(
-          '풍속 : $ws ㎧',
+          '풍속: $ws㎧',
           style: const TextStyle(fontSize: fontSize),
         ),
         Text(
-          '기온 : $at ℃',
+          '기온: $at℃',
           style: const TextStyle(fontSize: fontSize),
         ),
         Text(
-          '배터리 : $bt V',
+          '배터리: ${bt}V',
           style: const TextStyle(fontSize: fontSize),
         ),
       ],
