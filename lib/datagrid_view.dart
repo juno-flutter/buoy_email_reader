@@ -67,78 +67,127 @@ class DataGridViewState extends State<DataGridView> {
   Widget displayFooter(GetMainController controller) {
     if (controller.buoyLastData['datetime'] == null || controller.buoyLastData['datetime']!.isEmpty) {
       return Container(
-          alignment: AlignmentDirectional.center,
-          // decoration: const BoxDecoration(color: Colors.blue),
-          color: Colors.grey.shade200,
-          // foregroundDecoration: const BoxDecoration(color: Colors.amber),
-          padding: const EdgeInsets.only(top: 0),
-          child: const Text(
-            "데이터 없음!",
-            style: TextStyle(color: Colors.black87, fontSize: 20),
-          ));
+        alignment: AlignmentDirectional.center,
+        // decoration: const BoxDecoration(color: Colors.blue),
+        color: Colors.grey.shade200,
+        // foregroundDecoration: const BoxDecoration(color: Colors.amber),
+        padding: const EdgeInsets.only(top: 0),
+        child: const Text(
+          "데이터 없음!",
+          style: TextStyle(color: Colors.black87, fontSize: 20),
+        ),
+      );
     }
 
     String text = DateFormat('20yy년 MM월 dd일  HH시 mm분 ss초').format(controller.buoyLastData['datetime']!['datetime']);
     // text = '자료시간 - ' + text;
     return Container(
-      alignment: AlignmentDirectional.center,
+      // alignment: AlignmentDirectional.center,
       // decoration: const BoxDecoration(color: Colors.blue),
       color: Colors.grey.shade200,
       // foregroundDecoration: const BoxDecoration(color: Colors.amber),
-      padding: const EdgeInsets.only(top: 15),
-      child: Column(children: <Widget>[
-        displayWeather(),
-        const SizedBox(
-          height: 7,
-        ),
-        Text(
-          text,
-          style: const TextStyle(color: Colors.black87, fontSize: 15),
-        )
-      ]),
+      // padding: const EdgeInsets.only(top: 15),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          displayWeather(),
+          const SizedBox(
+            height: 7,
+          ),
+          Text(
+            text,
+            style: const TextStyle(color: Colors.black87, fontSize: 15),
+          )
+        ],
+      ),
     );
   }
 
   List<GridColumn> setGridColumn(double paddingColumn, double fontSizeHeader) {
     List<GridColumn> list = [
       GridColumn(
-          columnName: 'layer',
-          label: Container(
-              padding: EdgeInsets.all(paddingColumn),
-              alignment: Alignment.center,
-              child: Text('Layer', style: TextStyle(fontSize: fontSizeHeader)))),
+        columnName: 'layer',
+        label: Container(
+          padding: EdgeInsets.all(paddingColumn),
+          alignment: Alignment.center,
+          child: Text(
+            'Layer',
+            style: TextStyle(fontSize: fontSizeHeader),
+          ),
+        ),
+      ),
       GridColumn(
-          columnName: 'depth',
-          label: Container(
-              padding: EdgeInsets.all(paddingColumn),
-              alignment: Alignment.center,
-              child: Text('수심(m)', style: TextStyle(fontSize: fontSizeHeader)))),
+        columnName: 'depth',
+        label: Container(
+          padding: EdgeInsets.all(paddingColumn),
+          alignment: Alignment.center,
+          child: Text(
+            '수심\n(m)',
+            style: TextStyle(fontSize: fontSizeHeader),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
       GridColumn(
-          columnName: 'temperature',
-          label: Container(
-              padding: EdgeInsets.all(paddingColumn),
-              alignment: Alignment.center,
-              child: Text('수온(℃)', style: TextStyle(fontSize: fontSizeHeader)))),
+        columnName: 'temperature',
+        label: Container(
+          padding: EdgeInsets.all(paddingColumn),
+          alignment: Alignment.center,
+          child: Text(
+            '수온\n(℃)',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: fontSizeHeader,
+            ),
+          ),
+        ),
+      ),
       GridColumn(
-          columnName: 'salinity',
-          label: Container(
-              padding: EdgeInsets.all(paddingColumn),
-              alignment: Alignment.center,
-              child: Text('염분(PSU)', style: TextStyle(fontSize: fontSizeHeader)))),
+        columnName: 'salinity',
+        label: Container(
+          padding: EdgeInsets.all(paddingColumn),
+          alignment: Alignment.center,
+          child: Text(
+            '염분\n(PSU)',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: fontSizeHeader,
+            ),
+          ),
+        ),
+      ),
       GridColumn(
-          columnName: 'oxygen',
-          label: Container(
-              padding: EdgeInsets.all(paddingColumn),
-              alignment: Alignment.center,
-              child: Text('산소(㎎/ℓ)', style: TextStyle(fontSize: fontSizeHeader)))),
+        columnName: 'oxygen',
+        label: Container(
+          padding: EdgeInsets.all(paddingColumn),
+          alignment: Alignment.center,
+          child: Text(
+            '산소\n(㎎/ℓ)',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: fontSizeHeader,
+            ),
+          ),
+        ),
+      ),
     ];
     if (cm.siteInfo['system_name'].toString() == cm.systemNameSeaweed) {
-      list.add(GridColumn(
+      list.add(
+        GridColumn(
           columnName: 'light',
           label: Container(
-              padding: EdgeInsets.all(paddingColumn),
-              alignment: Alignment.center,
-              child: Text('일사량', style: TextStyle(fontSize: fontSizeHeader)))));
+            padding: EdgeInsets.all(paddingColumn),
+            alignment: Alignment.center,
+            child: Text(
+              '일사량',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: fontSizeHeader,
+              ),
+            ),
+          ),
+        ),
+      );
     }
     return list;
   }
