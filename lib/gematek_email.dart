@@ -87,12 +87,12 @@ class GematekEmail {
     late FetchImapResult fetchResult;
     emailBody = '';
     try {
-      await _client.idleDone();
+      // await _client.idleDone();
       // Mailbox mb = await _client.check();
       // print('MailBox = $mb');
       await _client.selectMailboxByPath(_mailboxName);
       fetchResult = await _client.fetchRecentMessages(messageCount: _readCount, criteria: 'BODY.PEEK[]');
-      await _client.idleStart();
+      // await _client.idleStart();
     } on ImapException catch (e) {
       if (kDebugMode) {
         print('IMAP Fetch failed with $e');

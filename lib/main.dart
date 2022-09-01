@@ -49,9 +49,9 @@ class MyApp extends StatelessWidget {
           // brightness: Brightness.light,
         ),
         // scrollbarTheme: scrollbarThemeData(),
-        // fontFamily: 'NanumGothic',
+        fontFamily: 'NanumGothic',
         // primarySwatch: Colors.blue,
-        textTheme: GoogleFonts.nanumGothicTextTheme(Theme.of(context).textTheme),
+        // textTheme: GoogleFonts.nanumGothicTextTheme(Theme.of(context).textTheme),
       ),
       home: const MyHomePage(title: '지마텍 부이 자료'),
     );
@@ -357,11 +357,11 @@ class MainPage extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.onPrimary,
-        image: DecorationImage(
+        image: const DecorationImage(
           fit: BoxFit.cover,
-          image: const AssetImage('assets/kg.png'),
+          image: AssetImage('assets/kg.png'),
           opacity: 0.12,
-          colorFilter: ColorFilter.mode(Colors.grey.shade200, BlendMode.dstOver),
+          // colorFilter: ColorFilter.mode(Colors.grey.shade200, BlendMode.dstOver),
         ),
       ),
       child: Scaffold(
@@ -405,7 +405,7 @@ class MainPage extends StatelessWidget {
                   // ),
                 ),
                 elevation: 9,
-                shadowColor: Colors.black,
+                shadowColor: Theme.of(context).colorScheme.shadow,
                 child: ListTile(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(60),
