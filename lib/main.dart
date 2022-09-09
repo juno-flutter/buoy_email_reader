@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'datagrid_view.dart';
 import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
 import 'getx_controller.dart';
+
 // import 'package:buoy_email_reader/color_schemes.g.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -354,6 +355,7 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const appbarRadius = 36.0;
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.onPrimary,
@@ -384,8 +386,15 @@ class MainPage extends StatelessWidget {
             ),
           ),
           shadowColor: Theme.of(context).colorScheme.shadow,
+          // surfaceTintColor: Colors.black,
           scrolledUnderElevation: 10,
           elevation: 10,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(appbarRadius),
+              bottomLeft: Radius.circular(appbarRadius),
+            ),
+          ),
         ),
         body: Scrollbar(
           // trackVisibility: true,
