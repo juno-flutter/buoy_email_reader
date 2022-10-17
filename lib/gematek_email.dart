@@ -72,13 +72,13 @@ class GematekEmail {
 
   int setCountAndMailbox({String systemName = _systemNfrdi}) {
     if (systemName == _systemNfrdi) {
-      _readCount = 15;
+      _readCount = 30;
       _mailboxName = 'INBOX';
     } else if(systemName == _systemSeaweed) {
-      _readCount = 5;
+      _readCount = 6;
       _mailboxName = _systemSeaweed;
     } else {
-      _readCount = 5;
+      _readCount = 12;
       _mailboxName = 'FIPA';
     }
     if (kDebugMode) {

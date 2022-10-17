@@ -81,8 +81,9 @@ class DataGridViewState extends State<DataGridView> {
       );
     }
 
-    String text = DateFormat('20yy년 MM월 dd일  HH시 mm분 ss초').format(controller.buoyLastData['datetime']!['datetime']);
-    // text = '자료시간 - ' + text;
+    String textDate = DateFormat('yy/MM/dd  HH:mm:ss').format(controller.buoyLastData['datetime']!['datetime']);
+    String textNo = "No.: ${int.parse(controller.buoyLastData['serial_no']!['sn']).toString()}";
+    // String text = DateFormat('20yy년 MM월 dd일  HH시 mm분 ss초').format(controller.buoyLastData['datetime']!['datetime']);
     return Container(
       // alignment: AlignmentDirectional.center,
       // decoration: const BoxDecoration(color: Colors.blue),
@@ -96,9 +97,18 @@ class DataGridViewState extends State<DataGridView> {
           const SizedBox(
             height: 7,
           ),
-          Text(
-            text,
-            style: const TextStyle(color: Colors.black87, fontSize: 15),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                textDate,
+                style: const TextStyle(color: Colors.black87, fontSize: 15),
+              ),
+              Text(
+                textNo,
+                style: const TextStyle(color: Colors.black87, fontSize: 15),
+              ),
+            ],
           )
         ],
       ),
@@ -253,7 +263,7 @@ class DataGridViewState extends State<DataGridView> {
           Get.back();
         },
         mini: false,
-        elevation: 4,
+        elevation: 0,
         child: const Icon(Icons.arrow_back),
       ),
     );
