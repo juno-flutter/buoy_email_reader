@@ -24,6 +24,8 @@ class DataGridViewState extends State<DataGridView> {
   Color setBackgroundColor() {
     if (cm.siteInfo['system_name'].toString() == cm.systemNameSeaweed) {
       return cm.colorSeaweed;
+    } else if(cm.siteInfo['system_name'].toString() == cm.systemNameFipa){
+      return cm.colorFipa;
     }
     return cm.colorNfrdi;
   }
@@ -207,7 +209,7 @@ class DataGridViewState extends State<DataGridView> {
             CircleAvatar(
               foregroundImage: ExactAssetImage(cm.siteInfo['system_name'].toString() == cm.systemNameNfrdi
                   ? 'assets/nifs.png'
-                  : 'assets/gijang.jpg'),
+                  : ( cm.siteInfo['system_name'].toString() == cm.systemNameSeaweed ? 'assets/gijang.jpg' : 'assets/FipaLogo.jpg')),
             ),
             const SizedBox(
               width: 15,
@@ -251,6 +253,7 @@ class DataGridViewState extends State<DataGridView> {
           Get.back();
         },
         mini: false,
+        elevation: 4,
         child: const Icon(Icons.arrow_back),
       ),
     );

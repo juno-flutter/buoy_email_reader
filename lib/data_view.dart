@@ -141,6 +141,10 @@ class _DataView extends State<DataView> {
         mailboxName = '해조류';
         readCount = 6;
       }
+      else if (widget.buoyData['system_name'] == '어항공단'){
+        mailboxName = 'FIPA';
+        readCount = 10;
+      }
       await client.selectMailboxByPath(mailboxName);
       final fetchResult = await client.fetchRecentMessages(messageCount: readCount, criteria: 'BODY.PEEK[]');
       setEmailData(fetchResult);

@@ -13,6 +13,7 @@ class GematekEmail {
   int _readCount = 5;
   static const String _systemNfrdi = '빈산소';
   static const String _systemSeaweed = '해조류';
+  static const String _systemFipa = '어항공단';
   String _mailboxName = '';
   String emailBody = '';
 
@@ -73,9 +74,12 @@ class GematekEmail {
     if (systemName == _systemNfrdi) {
       _readCount = 15;
       _mailboxName = 'INBOX';
-    } else {
+    } else if(systemName == _systemSeaweed) {
       _readCount = 5;
       _mailboxName = _systemSeaweed;
+    } else {
+      _readCount = 5;
+      _mailboxName = 'FIPA';
     }
     if (kDebugMode) {
       print('systemName = $systemName');

@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
         // scrollbarTheme: scrollbarThemeData(),
         // colorScheme: lightColorScheme,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xff00706c),
+          seedColor: const Color.fromRGBO(4, 0, 98, 1),
           // brightness: Brightness.light,
         ),
         // scrollbarTheme: scrollbarThemeData(),
@@ -230,6 +230,18 @@ class MainPage extends StatelessWidget {
       'layer': 4,
       'system_name': '해조류',
     },
+    'FP51': {
+      'id': 'FP51',
+      'name': '(FP51)',
+      'layer': 3,
+      'system_name': '어항공단',
+    },
+    'FP56': {
+      'id': 'FP56',
+      'name': '(FP56)',
+      'layer': 3,
+      'system_name': '어항공단',
+    },
     'AI51': {
       'id': 'AI51',
       'name': '고성1 (AI51)',
@@ -316,19 +328,19 @@ class MainPage extends StatelessWidget {
     },
     'AI68': {
       'id': 'AI68',
-      'name': '(AI68)',
+      'name': '칠천2 (AI68)',
       'layer': 5,
       'system_name': '빈산소',
     },
     'AI69': {
       'id': 'AI69',
-      'name': '(AI69)',
+      'name': '문항1 (AI69)',
       'layer': 5,
       'system_name': '빈산소',
     },
     'AI70': {
       'id': 'AI70',
-      'name': '(AI70)',
+      'name': '광천1 (AI70)',
       'layer': 4,
       'system_name': '빈산소',
     },
@@ -342,6 +354,63 @@ class MainPage extends StatelessWidget {
     return false;
   }
 
+  bool _isSeaweed(int i) {
+    String buoy = mapBuoyInfo[mapBuoyInfo.keys.toList()[i]]!['system_name'];
+    if (buoy == cm.systemNameSeaweed) {
+      return true;
+    }
+    return false;
+  }
+
+  bool _isFipa(int i) {
+    String buoy = mapBuoyInfo[mapBuoyInfo.keys.toList()[i]]!['system_name'];
+    if (buoy == cm.systemNameFipa) {
+      return true;
+    }
+    return false;
+  }
+
+  String _getSystemLogoString(int i) {
+    String temp;
+    if (_isNfrdi(i) == true){
+      temp =  'assets/nifs.png';
+    }
+    else if (_isSeaweed(i) == true){
+      temp = 'assets/gijang.jpg';
+    }
+    else {
+      temp = 'assets/FipaLogo.jpg';
+    }
+    return temp;
+  }
+
+  String _getSystemName(int i){
+    String temp;
+    if (_isNfrdi(i) == true){
+      temp =  cm.systemNameNfrdi;
+    }
+    else if (_isSeaweed(i) == true){
+      temp = cm.systemNameSeaweed;
+    }
+    else {
+      temp = cm.systemNameFipa;
+    }
+    return temp;
+  }
+
+  Color _getSystemColor(int i){
+    Color temp;
+    if (_isNfrdi(i) == true){
+      temp =  cm.colorNfrdi;
+    }
+    else if (_isSeaweed(i) == true){
+      temp = cm.colorSeaweed;
+    }
+    else {
+      temp = cm.colorFipa;
+    }
+    return temp;
+  }
   // Text _subSettingSystemName(int i) {
   //   return Text(
   //     mapBuoyInfo[mapBuoyInfo.keys.toList()[i]]!['system_name'],
@@ -355,7 +424,7 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const appbarRadius = 36.0;
+    const appbarRadius = 20.0;
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.onPrimary,
@@ -428,16 +497,16 @@ class MainPage extends StatelessWidget {
                       CircleAvatar(
                         radius: 30,
                         backgroundColor: Colors.white,
-                        foregroundImage: ExactAssetImage(_isNfrdi(i) ? 'assets/nifs.png' : 'assets/gijang.jpg'),
+                        foregroundImage: ExactAssetImage(_getSystemLogoString(i)),
                         // backgroundColor: _isNfrdi(i) ? cm.colorNfrdi : cm.colorSeaweed,
                         // child: _subSettingSystemName(i),
                       ),
                       Text(
-                        _isNfrdi(i) ? cm.systemNameNfrdi : cm.systemNameSeaweed,
+                        _getSystemName(i),
                         style: TextStyle(
                           fontFamily: 'NanumGothic',
                           fontSize: 20,
-                          color: _isNfrdi(i) ? cm.colorNfrdi : cm.colorSeaweed,
+                          color: _getSystemColor(i),
                         ),
                       ),
                       Text(
@@ -474,7 +543,7 @@ class MainPage extends StatelessWidget {
                       // elevation: 40,
                       radius: 25,
                       hideText: false,
-                      indicatorColor: _isNfrdi(i) ? cm.colorNfrdi : cm.colorSeaweed,
+                      indicatorColor: _getSystemColor(i),
                     );
 
                     cm.client.setCountAndMailbox(systemName: thisSiteInfo['system_name']);
