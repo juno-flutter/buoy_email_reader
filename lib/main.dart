@@ -9,14 +9,6 @@ import 'getx_controller.dart';
 // import 'package:buoy_email_reader/color_schemes.g.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// import 'dart:io';
-// import 'package:gematek_buoy_email/data_view.dart';
-// import 'package:enough_mail/enough_mail.dart';
-// import 'package:enough_mail/enough_mail.dart';
-// import 'package:simple_fontellico_progress_dialog/fontelico_icons.dart';
-// import 'package:simple_fontellico_progress_dialog/rotate_icon.dart';
-// import 'package:gematek_buoy_email/data_view.dart';
-
 void main() {
   // runApp(GetMaterialApp(home: MyApp()));
   runApp(MyApp());
@@ -46,7 +38,7 @@ class MyApp extends StatelessWidget {
         // scrollbarTheme: scrollbarThemeData(),
         // colorScheme: lightColorScheme,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromRGBO(4, 0, 98, 1),
+          seedColor: const Color.fromRGBO(14, 6, 117, 1),
           // brightness: Brightness.light,
         ),
         // scrollbarTheme: scrollbarThemeData(),
@@ -438,8 +430,9 @@ class MainPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          // leading: null,
-          backgroundColor: Theme.of(context).colorScheme.primary,
+          leading: null,
+          // backgroundColor: Theme.of(context).colorScheme.primary,
+          backgroundColor: const Color.fromRGBO(14, 6, 117, 0.8),
           centerTitle: true,
           title: Text(
             '지마텍 부이 자료',
