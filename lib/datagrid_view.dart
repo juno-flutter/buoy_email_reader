@@ -24,7 +24,7 @@ class DataGridViewState extends State<DataGridView> {
   Color setBackgroundColor() {
     if (cm.siteInfo['system_name'].toString() == cm.systemNameSeaweed) {
       return cm.colorSeaweed;
-    } else if(cm.siteInfo['system_name'].toString() == cm.systemNameFipa){
+    } else if (cm.siteInfo['system_name'].toString() == cm.systemNameFipa) {
       return cm.colorFipa;
     }
     return cm.colorNfrdi;
@@ -219,7 +219,7 @@ class DataGridViewState extends State<DataGridView> {
             CircleAvatar(
               foregroundImage: ExactAssetImage(cm.siteInfo['system_name'].toString() == cm.systemNameNfrdi
                   ? 'assets/nifs.png'
-                  : ( cm.siteInfo['system_name'].toString() == cm.systemNameSeaweed ? 'assets/gijang.jpg' : 'assets/FipaLogo.jpg')),
+                  : (cm.siteInfo['system_name'].toString() == cm.systemNameSeaweed ? 'assets/gijang.jpg' : 'assets/FipaLogo.jpg')),
             ),
             const SizedBox(
               width: 15,
@@ -317,29 +317,32 @@ class BuoyDataSource extends DataGridSource {
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
-        cells: row.getCells().map<Widget>((e) {
-      Color getColor() {
-        double data = double.parse(e.value);
-        if (data <= 0) {
-          return Colors.redAccent;
-        }
-        return Colors.transparent;
-      }
+      cells: row.getCells().map<Widget>(
+        (e) {
+          Color getColor() {
+            double data = double.parse(e.value);
+            if (data <= 0) {
+              return Colors.redAccent;
+            }
+            return Colors.transparent;
+          }
 
-      TextStyle? getTextStyle() {
-        double data = double.parse(e.value.toString());
-        if (data <= 0) {
-          return const TextStyle(color: Colors.white, fontSize: 16);
-        }
-        return const TextStyle(fontSize: 16);
-      }
+          TextStyle? getTextStyle() {
+            double data = double.parse(e.value.toString());
+            if (data <= 0) {
+              return const TextStyle(color: Colors.white, fontSize: 16);
+            }
+            return const TextStyle(fontSize: 16);
+          }
 
-      return Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.all(8.0),
-        color: getColor(),
-        child: Text(e.value.toString(), style: getTextStyle()),
-      );
-    }).toList());
+          return Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.all(8.0),
+            color: getColor(),
+            child: Text(e.value.toString(), style: getTextStyle()),
+          );
+        },
+      ).toList(),
+    );
   }
 }
