@@ -7,7 +7,7 @@ import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
 import 'getx_controller.dart';
 
 // import 'package:buoy_email_reader/color_schemes.g.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   // runApp(GetMaterialApp(home: MyApp()));
@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
   @override
   void dispose() {
     //앱 상태 변경 이벤트 해제
-    //문제는 앱 종료시 dispose함수가 호출되지 않아 해당 함수를 실행 할 수가 없다.
+    //문제는 앱 종료시 dispose 함수가 호출되지 않아 해당 함수를 실행 할 수가 없다.
     // WidgetsBinding.instance.removeObserver(this);
     // _animationController.dispose();
     super.dispose();
@@ -122,10 +122,10 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
         break;
       case AppLifecycleState.inactive:
         // 앱이 비활성화 상태이고 사용자의 입력을 받지 않습니다.
-        // ios에서는 포 그라운드 비활성 상태에서 실행되는 앱 또는 Flutter 호스트 뷰에 해당합니다.
+        // ios 에서는 포 그라운드 비활성 상태에서 실행되는 앱 또는 Flutter 호스트 뷰에 해당합니다.
         // 안드로이드에서는 화면 분할 앱, 전화 통화, PIP 앱, 시스템 대화 상자 또는 다른 창과 같은 다른 활동이
         // 집중되면 앱이이 상태로 전환됩니다.
-        // inactive가 발생되고 얼마후 pasued가 발생합니다.
+        // inactive 가 발생되고 얼마후 passed 가 발생합니다.
         if (kDebugMode) {
           print("inactive");
         }
@@ -158,13 +158,19 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme
+          .of(context)
+          .colorScheme
+          .primary,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             CircularProgressIndicator(
-              color: Theme.of(context).colorScheme.onPrimary,
+              color: Theme
+                  .of(context)
+                  .colorScheme
+                  .onPrimary,
               // color: Colors.white54,
               strokeWidth: 3,
               // value: _animationController.value,
@@ -179,12 +185,18 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
                 fontFamily: 'NanumGothic',
                 fontWeight: FontWeight.bold,
                 fontStyle: FontStyle.italic,
-                color: Theme.of(context).colorScheme.onPrimary,
+                color: Theme
+                    .of(context)
+                    .colorScheme
+                    .onPrimary,
                 // color: Colors.white,
                 shadows: <Shadow>[
                   Shadow(
                     offset: const Offset(4, 4),
-                    color: Theme.of(context).colorScheme.shadow,
+                    color: Theme
+                        .of(context)
+                        .colorScheme
+                        .shadow,
                     // color: Colors.black38,
                     blurRadius: 3.0,
                   ),
@@ -203,7 +215,8 @@ class MainPage extends StatelessWidget {
   MainPage({Key? key}) : super(key: key);
 
   final GetMainController cm = Get.find();
-  static const Map<String, Map<String, dynamic>> mapBuoyInfo = {
+
+  static const Map<String, Map<String, dynamic>> mapBuoyInfoSeaweed = {
     'BK51': {
       'id': 'BK51',
       'name': '기장 (BK51)',
@@ -222,18 +235,96 @@ class MainPage extends StatelessWidget {
       'layer': 4,
       'system_name': '해조류',
     },
+  };
+
+  static const Map<String, Map<String, dynamic>> mapBuoyInfoFipa = {
     'FP51': {
       'id': 'FP51',
-      'name': '(FP51)',
+      'name': '율도 (FP51)',
+      'type': 'A',
+      'layer': 3,
+      'system_name': '어항공단',
+    },
+    'FP52': {
+      'id': 'FP52',
+      'name': '진목A (FP52)',
+      'type': 'A',
+      'layer': 3,
+      'system_name': '어항공단',
+    },
+    'FP53': {
+      'id': 'FP53',
+      'name': '진목B (FP53)',
+      'type': 'B',
+      'layer': 3,
+      'system_name': '어항공단',
+    },
+    'FP54': {
+      'id': 'FP54',
+      'name': '선소 (FP54)',
+      'type': 'A',
+      'layer': 3,
+      'system_name': '어항공단',
+    },
+    'FP55': {
+      'id': 'FP55',
+      'name': '신흥 (FP55)',
+      'type': 'A',
       'layer': 3,
       'system_name': '어항공단',
     },
     'FP56': {
       'id': 'FP56',
-      'name': '(FP56)',
+      'name': '양도A (FP56)',
+      'type': 'A',
       'layer': 3,
       'system_name': '어항공단',
     },
+    'FP57': {
+      'id': 'FP57',
+      'name': '양도B (FP57)',
+      'type': 'B',
+      'layer': 3,
+      'system_name': '어항공단',
+    },
+    'FP58': {
+      'id': 'FP58',
+      'name': '저도 (FP58)',
+      'type': 'A',
+      'layer': 3,
+      'system_name': '어항공단',
+    },
+    'FP59': {
+      'id': 'FP59',
+      'name': '청암A (FP59)',
+      'type': 'A',
+      'layer': 3,
+      'system_name': '어항공단',
+    },
+    'FP60': {
+      'id': 'FP60',
+      'name': '청암B (FP60)',
+      'type': 'B',
+      'layer': 3,
+      'system_name': '어항공단',
+    },
+    'FP61': {
+      'id': 'FP61',
+      'name': '송림A (FP61)',
+      'type': 'A',
+      'layer': 3,
+      'system_name': '어항공단',
+    },
+    'FP62': {
+      'id': 'FP62',
+      'name': '송림B (FP62)',
+      'type': 'B',
+      'layer': 3,
+      'system_name': '어항공단',
+    },
+  };
+
+  static const Map<String, Map<String, dynamic>> mapBuoyInfoNfrdi = {
     'AI51': {
       'id': 'AI51',
       'name': '고성1 (AI51)',
@@ -338,6 +429,12 @@ class MainPage extends StatelessWidget {
     },
   };
 
+  static const Map<String, Map<String, dynamic>> mapBuoyInfo = {
+    ...mapBuoyInfoSeaweed,
+    ...mapBuoyInfoFipa,
+    ...mapBuoyInfoNfrdi,
+  };
+
   bool _isNfrdi(int i) {
     String buoy = mapBuoyInfo[mapBuoyInfo.keys.toList()[i]]!['system_name'];
     if (buoy == cm.systemNameNfrdi) {
@@ -364,10 +461,10 @@ class MainPage extends StatelessWidget {
 
   String _getSystemLogoString(int i) {
     String temp;
-    if (_isNfrdi(i) == true){
-      temp =  'assets/nifs.png';
+    if (_isNfrdi(i) == true) {
+      temp = 'assets/nifs.png';
     }
-    else if (_isSeaweed(i) == true){
+    else if (_isSeaweed(i) == true) {
       temp = 'assets/gijang.jpg';
     }
     else {
@@ -376,12 +473,12 @@ class MainPage extends StatelessWidget {
     return temp;
   }
 
-  String _getSystemName(int i){
+  String _getSystemName(int i) {
     String temp;
-    if (_isNfrdi(i) == true){
-      temp =  cm.systemNameNfrdi;
+    if (_isNfrdi(i) == true) {
+      temp = cm.systemNameNfrdi;
     }
-    else if (_isSeaweed(i) == true){
+    else if (_isSeaweed(i) == true) {
       temp = cm.systemNameSeaweed;
     }
     else {
@@ -390,12 +487,12 @@ class MainPage extends StatelessWidget {
     return temp;
   }
 
-  Color _getSystemColor(int i){
+  Color _getSystemColor(int i) {
     Color temp;
-    if (_isNfrdi(i) == true){
-      temp =  cm.colorNfrdi;
+    if (_isNfrdi(i) == true) {
+      temp = cm.colorNfrdi;
     }
-    else if (_isSeaweed(i) == true){
+    else if (_isSeaweed(i) == true) {
       temp = cm.colorSeaweed;
     }
     else {
@@ -403,6 +500,7 @@ class MainPage extends StatelessWidget {
     }
     return temp;
   }
+
   // Text _subSettingSystemName(int i) {
   //   return Text(
   //     mapBuoyInfo[mapBuoyInfo.keys.toList()[i]]!['system_name'],
@@ -419,7 +517,10 @@ class MainPage extends StatelessWidget {
     const appbarRadius = 20.0;
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.onPrimary,
+        color: Theme
+            .of(context)
+            .colorScheme
+            .onPrimary,
         image: const DecorationImage(
           fit: BoxFit.cover,
           image: AssetImage('assets/kg.png'),
@@ -444,10 +545,16 @@ class MainPage extends StatelessWidget {
               // fontFamily: 'NanumGothic',
               fontWeight: FontWeight.bold,
               fontSize: 24,
-              color: Theme.of(context).colorScheme.onPrimary,
+              color: Theme
+                  .of(context)
+                  .colorScheme
+                  .onPrimary,
             ),
           ),
-          shadowColor: Theme.of(context).colorScheme.shadow,
+          shadowColor: Theme
+              .of(context)
+              .colorScheme
+              .shadow,
           // surfaceTintColor: Colors.black,
           scrolledUnderElevation: 10,
           elevation: 10,
@@ -476,7 +583,10 @@ class MainPage extends StatelessWidget {
                   // ),
                 ),
                 elevation: 9,
-                shadowColor: Theme.of(context).colorScheme.shadow,
+                shadowColor: Theme
+                    .of(context)
+                    .colorScheme
+                    .shadow,
                 child: ListTile(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(60),
@@ -549,7 +659,7 @@ class MainPage extends StatelessWidget {
                     await Future.delayed(const Duration(milliseconds: 100));
 
                     Get.to(
-                      () => const DataGridView(),
+                          () => const DataGridView(),
                       transition: Transition.leftToRight,
                       duration: const Duration(milliseconds: 800),
                       curve: Curves.easeInOutExpo,
@@ -558,7 +668,8 @@ class MainPage extends StatelessWidget {
                 ),
               );
             },
-            separatorBuilder: (BuildContext context, int idx) => const Divider(
+            separatorBuilder: (BuildContext context, int idx) =>
+            const Divider(
               height: 5,
               thickness: 0,
               color: Colors.transparent,

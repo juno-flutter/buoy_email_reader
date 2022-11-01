@@ -123,7 +123,7 @@ class DataGridViewState extends State<DataGridView> {
           padding: EdgeInsets.all(paddingColumn),
           alignment: Alignment.center,
           child: Text(
-            'Layer',
+            'No',
             style: TextStyle(fontSize: fontSizeHeader),
           ),
         ),
@@ -183,7 +183,8 @@ class DataGridViewState extends State<DataGridView> {
         ),
       ),
     ];
-    if (cm.siteInfo['system_name'].toString() == cm.systemNameSeaweed) {
+    String systemName = cm.siteInfo['system_name'].toString();
+    if (systemName == cm.systemNameSeaweed || (systemName == cm.systemNameFipa && cm.siteInfo['type'] == 'B')) {
       list.add(
         GridColumn(
           columnName: 'light',
@@ -200,6 +201,24 @@ class DataGridViewState extends State<DataGridView> {
           ),
         ),
       );
+      if (systemName == cm.systemNameFipa){
+        list.add(
+          GridColumn(
+            columnName: 'chlorophyll',
+            label: Container(
+              padding: EdgeInsets.all(paddingColumn),
+              alignment: Alignment.center,
+              child: Text(
+                '엽록소',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: fontSizeHeader,
+                ),
+              ),
+            ),
+          ),
+        );
+      }
     }
     return list;
   }

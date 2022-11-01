@@ -59,8 +59,12 @@ class GetMainController extends GetxController {
           salinity: strSensorData[2],
           oxygen: strSensorData[3],
         );
-        if (siteInfo['system_name'] == '해조류') {
-          sensor.addLight(strSensorData[4]);
+        if (siteInfo['system_name'] == systemNameSeaweed) {
+          // sensor.addLight(strSensorData[4]);
+          sensor.light = strSensorData[4];
+        } else if (siteInfo['system_name'] == systemNameFipa && siteInfo['type'] == 'B') {
+          sensor.light = strSensorData[4];
+          sensor.chlorophyll = strSensorData[5];
         }
         listSensorData.add(sensor);
       }
@@ -75,11 +79,24 @@ class SensorDataForGrid {
   String temperature;
   String salinity;
   String oxygen;
-  String light = '';
+  String light;
+  String chlorophyll;
 
-  SensorDataForGrid({required this.no, required this.depth, required this.temperature, required this.salinity, required this.oxygen});
+  SensorDataForGrid({
+    required this.no,
+    required this.depth,
+    required this.temperature,
+    required this.salinity,
+    required this.oxygen,
+    this.light = '',
+    this.chlorophyll = '',
+  });
 
-  void addLight(String value) {
-    light = value;
-  }
+// void addLight(String value) {
+//   light = value;
+// }
+//
+// void addChlorophyll(String value) {
+//   chlorophyll = value;
+// }
 }
