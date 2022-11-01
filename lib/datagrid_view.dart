@@ -76,7 +76,7 @@ class DataGridViewState extends State<DataGridView> {
         padding: const EdgeInsets.only(top: 0),
         child: const Text(
           "데이터 없음!",
-          style: TextStyle(color: Colors.black87, fontSize: 20),
+          style: TextStyle(color: Colors.redAccent, fontSize: 20, fontWeight: FontWeight.bold),
         ),
       );
     }
@@ -201,7 +201,7 @@ class DataGridViewState extends State<DataGridView> {
           ),
         ),
       );
-      if (systemName == cm.systemNameFipa){
+      if (systemName == cm.systemNameFipa) {
         list.add(
           GridColumn(
             columnName: 'chlorophyll',
@@ -236,13 +236,13 @@ class DataGridViewState extends State<DataGridView> {
         title: Row(
           children: [
             CircleAvatar(
-              foregroundImage: ExactAssetImage(cm.siteInfo['system_name'].toString() == cm.systemNameNfrdi
-                  ? 'assets/nifs.png'
-                  : (cm.siteInfo['system_name'].toString() == cm.systemNameSeaweed ? 'assets/gijang.jpg' : 'assets/FipaLogo.jpg')),
+              foregroundImage: ExactAssetImage(
+                cm.siteInfo['system_name'].toString() == cm.systemNameNfrdi
+                    ? 'assets/nifs.png'
+                    : (cm.siteInfo['system_name'].toString() == cm.systemNameSeaweed ? 'assets/gijang.jpg' : 'assets/FipaLogo.jpg'),
+              ),
             ),
-            const SizedBox(
-              width: 15,
-            ),
+            const SizedBox(width: 15),
             Text(
               cm.siteInfo['system_name'].toString(),
               style: const TextStyle(
@@ -250,9 +250,7 @@ class DataGridViewState extends State<DataGridView> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(
-              width: 20,
-            ),
+            const SizedBox(width: 20),
             Text(
               cm.siteInfo['name'].toString(),
               style: const TextStyle(
@@ -268,9 +266,7 @@ class DataGridViewState extends State<DataGridView> {
         allowPullToRefresh: true,
         footerHeight: 80,
         footer: GetBuilder<GetMainController>(
-          builder: (controller) {
-            return displayFooter(controller);
-          },
+          builder: (controller) => displayFooter(controller),
         ),
         source: buoyDataSource,
         columnWidthMode: ColumnWidthMode.fill,
@@ -278,9 +274,7 @@ class DataGridViewState extends State<DataGridView> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: setBackgroundColor(),
-        onPressed: () {
-          Get.back();
-        },
+        onPressed: () => Get.back(),
         mini: false,
         elevation: 0,
         child: const Icon(Icons.arrow_back),

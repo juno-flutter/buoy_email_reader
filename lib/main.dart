@@ -158,19 +158,13 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme
-          .of(context)
-          .colorScheme
-          .primary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             CircularProgressIndicator(
-              color: Theme
-                  .of(context)
-                  .colorScheme
-                  .onPrimary,
+              color: Theme.of(context).colorScheme.onPrimary,
               // color: Colors.white54,
               strokeWidth: 3,
               // value: _animationController.value,
@@ -185,18 +179,12 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver, Ti
                 fontFamily: 'NanumGothic',
                 fontWeight: FontWeight.bold,
                 fontStyle: FontStyle.italic,
-                color: Theme
-                    .of(context)
-                    .colorScheme
-                    .onPrimary,
+                color: Theme.of(context).colorScheme.onPrimary,
                 // color: Colors.white,
                 shadows: <Shadow>[
                   Shadow(
                     offset: const Offset(4, 4),
-                    color: Theme
-                        .of(context)
-                        .colorScheme
-                        .shadow,
+                    color: Theme.of(context).colorScheme.shadow,
                     // color: Colors.black38,
                     blurRadius: 3.0,
                   ),
@@ -451,23 +439,21 @@ class MainPage extends StatelessWidget {
     return false;
   }
 
-  bool _isFipa(int i) {
-    String buoy = mapBuoyInfo[mapBuoyInfo.keys.toList()[i]]!['system_name'];
-    if (buoy == cm.systemNameFipa) {
-      return true;
-    }
-    return false;
-  }
+  // bool _isFipa(int i) {
+  //   String buoy = mapBuoyInfo[mapBuoyInfo.keys.toList()[i]]!['system_name'];
+  //   if (buoy == cm.systemNameFipa) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   String _getSystemLogoString(int i) {
     String temp;
     if (_isNfrdi(i) == true) {
       temp = 'assets/nifs.png';
-    }
-    else if (_isSeaweed(i) == true) {
+    } else if (_isSeaweed(i) == true) {
       temp = 'assets/gijang.jpg';
-    }
-    else {
+    } else {
       temp = 'assets/FipaLogo.jpg';
     }
     return temp;
@@ -477,11 +463,9 @@ class MainPage extends StatelessWidget {
     String temp;
     if (_isNfrdi(i) == true) {
       temp = cm.systemNameNfrdi;
-    }
-    else if (_isSeaweed(i) == true) {
+    } else if (_isSeaweed(i) == true) {
       temp = cm.systemNameSeaweed;
-    }
-    else {
+    } else {
       temp = cm.systemNameFipa;
     }
     return temp;
@@ -491,11 +475,9 @@ class MainPage extends StatelessWidget {
     Color temp;
     if (_isNfrdi(i) == true) {
       temp = cm.colorNfrdi;
-    }
-    else if (_isSeaweed(i) == true) {
+    } else if (_isSeaweed(i) == true) {
       temp = cm.colorSeaweed;
-    }
-    else {
+    } else {
       temp = cm.colorFipa;
     }
     return temp;
@@ -517,15 +499,13 @@ class MainPage extends StatelessWidget {
     const appbarRadius = 20.0;
     return Container(
       decoration: BoxDecoration(
-        color: Theme
-            .of(context)
-            .colorScheme
-            .onPrimary,
+        color: Theme.of(context).colorScheme.onPrimary,
         image: const DecorationImage(
-          fit: BoxFit.cover,
+          // fit: BoxFit.fitWidth,
           image: AssetImage('assets/kg.png'),
           opacity: 0.12,
-          // colorFilter: ColorFilter.mode(Colors.grey.shade200, BlendMode.dstOver),
+          scale: 2.85,
+          repeat: ImageRepeat.repeat,
         ),
       ),
       child: Scaffold(
@@ -545,16 +525,10 @@ class MainPage extends StatelessWidget {
               // fontFamily: 'NanumGothic',
               fontWeight: FontWeight.bold,
               fontSize: 24,
-              color: Theme
-                  .of(context)
-                  .colorScheme
-                  .onPrimary,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),
-          shadowColor: Theme
-              .of(context)
-              .colorScheme
-              .shadow,
+          shadowColor: Theme.of(context).colorScheme.shadow,
           // surfaceTintColor: Colors.black,
           scrolledUnderElevation: 10,
           elevation: 10,
@@ -583,10 +557,7 @@ class MainPage extends StatelessWidget {
                   // ),
                 ),
                 elevation: 9,
-                shadowColor: Theme
-                    .of(context)
-                    .colorScheme
-                    .shadow,
+                shadowColor: Theme.of(context).colorScheme.shadow,
                 child: ListTile(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(60),
@@ -659,7 +630,7 @@ class MainPage extends StatelessWidget {
                     await Future.delayed(const Duration(milliseconds: 100));
 
                     Get.to(
-                          () => const DataGridView(),
+                      () => const DataGridView(),
                       transition: Transition.leftToRight,
                       duration: const Duration(milliseconds: 800),
                       curve: Curves.easeInOutExpo,
@@ -668,8 +639,7 @@ class MainPage extends StatelessWidget {
                 ),
               );
             },
-            separatorBuilder: (BuildContext context, int idx) =>
-            const Divider(
+            separatorBuilder: (BuildContext context, int idx) => const Divider(
               height: 5,
               thickness: 0,
               color: Colors.transparent,

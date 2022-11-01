@@ -50,8 +50,8 @@ class GetMainController extends GetxController {
     int offset = 7;
     for (int ii = 0; ii < layer; ii++) {
       List<String> strSensorData = strTemp[ii + offset].split('_');
-      if (strSensorData.length == 4 || strSensorData.length == 5) {
-        // 빈산소 = 4, 해조류 = 5
+      if (4 <= strSensorData.length && strSensorData.length <= 6) {
+        // 빈산소 = 4, 해조류 = 5, 어항공단 = 4 or 6
         SensorDataForGrid sensor = SensorDataForGrid(
           no: (ii + 1).toString(),
           depth: strSensorData[0],
