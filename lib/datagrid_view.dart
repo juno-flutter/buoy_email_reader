@@ -231,9 +231,10 @@ class DataGridViewState extends State<DataGridView> {
 
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 60,
+        // toolbarHeight: 60,
         backgroundColor: setBackgroundColor(),
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CircleAvatar(
               foregroundImage: ExactAssetImage(
@@ -242,20 +243,20 @@ class DataGridViewState extends State<DataGridView> {
                     : (cm.siteInfo['system_name'].toString() == cm.systemNameSeaweed ? 'assets/gijang.jpg' : 'assets/FipaLogo.jpg'),
               ),
             ),
-            const SizedBox(width: 15),
+            // const SizedBox(width: 15),
             Text(
               cm.siteInfo['system_name'].toString(),
               style: const TextStyle(
                 fontFamily: 'NanumGothic',
-                fontWeight: FontWeight.bold,
+                // fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(width: 20),
+            // const SizedBox(width: 20),
             Text(
               cm.siteInfo['name'].toString(),
               style: const TextStyle(
                 fontFamily: 'NanumGothic',
-                fontWeight: FontWeight.bold,
+                // fontWeight: FontWeight.bold,
               ),
             ),
           ],
