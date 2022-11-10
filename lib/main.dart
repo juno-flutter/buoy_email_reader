@@ -501,11 +501,11 @@ class MainPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.onPrimary,
         image: const DecorationImage(
-          // fit: BoxFit.fitWidth,
+          fit: BoxFit.fitWidth,
           image: AssetImage('assets/kg.png'),
           opacity: 0.12,
-          scale: 2.85,
-          repeat: ImageRepeat.repeat,
+          // scale: 5,
+          // repeat: ImageRepeat.repeat,
         ),
       ),
       child: Scaffold(

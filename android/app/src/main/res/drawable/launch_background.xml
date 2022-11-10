@@ -7,7 +7,6 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:tileMode="repeat"
             android:src="@mipmap/korea_ger" />
     </item>
 </layer-list>

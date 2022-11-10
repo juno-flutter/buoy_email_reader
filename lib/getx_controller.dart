@@ -50,8 +50,8 @@ class GetMainController extends GetxController {
     int offset = 7;
     for (int ii = 0; ii < layer; ii++) {
       List<String> strSensorData = strTemp[ii + offset].split('_');
-      if (4 <= strSensorData.length && strSensorData.length <= 6) {
-        // 빈산소 = 4, 해조류 = 5, 어항공단 = 4 or 6
+      if (4 <= strSensorData.length && strSensorData.length <= 5) {
+        // 빈산소 = 4, 해조류 = 5, 어항공단 = 4
         SensorDataForGrid sensor = SensorDataForGrid(
           no: (ii + 1).toString(),
           depth: strSensorData[0],
@@ -62,10 +62,23 @@ class GetMainController extends GetxController {
         if (siteInfo['system_name'] == systemNameSeaweed) {
           // sensor.addLight(strSensorData[4]);
           sensor.light = strSensorData[4];
-        } else if (siteInfo['system_name'] == systemNameFipa && siteInfo['type'] == 'B') {
-          sensor.light = strSensorData[4];
-          sensor.chlorophyll = strSensorData[5];
         }
+        // else if (siteInfo['system_name'] == systemNameFipa && siteInfo['type'] == 'B') {
+        //   sensor.light = strSensorData[4];
+        //   sensor.chlorophyll = strSensorData[5];
+        // }
+        listSensorData.add(sensor);
+      }
+      else {  // 어항공단 System B
+        SensorDataForGrid sensor = SensorDataForGrid(
+          no: (ii + 1).toString(),
+          depth: strSensorData[0],
+          temperature: strSensorData[1],
+          ntu: strSensorData[2],
+          ph: strSensorData[3],
+          light: strSensorData[4],
+          chlorophyll: strSensorData[5],
+        );
         listSensorData.add(sensor);
       }
     }
@@ -80,15 +93,19 @@ class SensorDataForGrid {
   String salinity;
   String oxygen;
   String light;
+  String ntu;
+  String ph;
   String chlorophyll;
 
   SensorDataForGrid({
     required this.no,
     required this.depth,
     required this.temperature,
-    required this.salinity,
-    required this.oxygen,
+    this.salinity = '',
+    this.oxygen = '',
     this.light = '',
+    this.ph = '',
+    this.ntu = '',
     this.chlorophyll = '',
   });
 

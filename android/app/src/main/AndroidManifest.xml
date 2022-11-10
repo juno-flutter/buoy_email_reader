@@ -3,7 +3,7 @@
    <application
         android:label="buoy_email_reader"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/korea_ger">
         <activity
             android:name=".MainActivity"
             android:exported="true"

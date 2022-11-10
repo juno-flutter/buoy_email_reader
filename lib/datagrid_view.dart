@@ -154,45 +154,18 @@ class DataGridViewState extends State<DataGridView> {
           ),
         ),
       ),
-      GridColumn(
-        columnName: 'salinity',
-        label: Container(
-          padding: EdgeInsets.all(paddingColumn),
-          alignment: Alignment.center,
-          child: Text(
-            '염분\n(PSU)',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: fontSizeHeader,
-            ),
-          ),
-        ),
-      ),
-      GridColumn(
-        columnName: 'oxygen',
-        label: Container(
-          padding: EdgeInsets.all(paddingColumn),
-          alignment: Alignment.center,
-          child: Text(
-            '산소\n(㎎/ℓ)',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: fontSizeHeader,
-            ),
-          ),
-        ),
-      ),
     ];
+
     String systemName = cm.siteInfo['system_name'].toString();
-    if (systemName == cm.systemNameSeaweed || (systemName == cm.systemNameFipa && cm.siteInfo['type'] == 'B')) {
-      list.add(
+    if (systemName != cm.systemNameFipa || cm.siteInfo['type'] != 'B') {
+      List<GridColumn> tempList = [
         GridColumn(
-          columnName: 'light',
+          columnName: 'salinity',
           label: Container(
             padding: EdgeInsets.all(paddingColumn),
             alignment: Alignment.center,
             child: Text(
-              '일사량',
+              '염분\n(PSU)',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: fontSizeHeader,
@@ -200,16 +173,32 @@ class DataGridViewState extends State<DataGridView> {
             ),
           ),
         ),
-      );
-      if (systemName == cm.systemNameFipa) {
+        GridColumn(
+          columnName: 'oxygen',
+          label: Container(
+            padding: EdgeInsets.all(paddingColumn),
+            alignment: Alignment.center,
+            child: Text(
+              '산소\n(㎎/ℓ)',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: fontSizeHeader,
+              ),
+            ),
+          ),
+        ),
+      ];
+      list.addAll(tempList);
+
+      if (systemName == cm.systemNameSeaweed || (systemName == cm.systemNameFipa && cm.siteInfo['type'] == 'B')) {
         list.add(
           GridColumn(
-            columnName: 'chlorophyll',
+            columnName: 'light',
             label: Container(
               padding: EdgeInsets.all(paddingColumn),
               alignment: Alignment.center,
               child: Text(
-                '엽록소',
+                '일사량',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: fontSizeHeader,
@@ -218,6 +207,53 @@ class DataGridViewState extends State<DataGridView> {
             ),
           ),
         );
+
+        if (systemName == cm.systemNameFipa && cm.siteInfo['type'] == 'B') {
+          list.addAll([
+            GridColumn(
+              columnName: 'ntu',
+              label: Container(
+                padding: EdgeInsets.all(paddingColumn),
+                alignment: Alignment.center,
+                child: Text(
+                  'NTU',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: fontSizeHeader,
+                  ),
+                ),
+              ),
+            ),
+            GridColumn(
+              columnName: 'ph',
+              label: Container(
+                padding: EdgeInsets.all(paddingColumn),
+                alignment: Alignment.center,
+                child: Text(
+                  'pH',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: fontSizeHeader,
+                  ),
+                ),
+              ),
+            ),
+            GridColumn(
+              columnName: 'chlorophyll',
+              label: Container(
+                padding: EdgeInsets.all(paddingColumn),
+                alignment: Alignment.center,
+                child: Text(
+                  'Chlo.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: fontSizeHeader,
+                  ),
+                ),
+              ),
+            ),
+          ]);
+        }
       }
     }
     return list;
