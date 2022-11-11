@@ -116,8 +116,12 @@ class DataGridViewState extends State<DataGridView> {
   }
 
   List<GridColumn> setGridColumn(double paddingColumn, double fontSizeHeader) {
+    var cwm = ColumnWidthMode.none;
+    var afp = const EdgeInsets.all(12);
     List<GridColumn> list = [
       GridColumn(
+        columnWidthMode: cwm,
+        autoFitPadding: afp,
         columnName: 'layer',
         label: Container(
           padding: EdgeInsets.all(paddingColumn),
@@ -129,6 +133,8 @@ class DataGridViewState extends State<DataGridView> {
         ),
       ),
       GridColumn(
+        columnWidthMode: cwm,
+        autoFitPadding: afp,
         columnName: 'depth',
         label: Container(
           padding: EdgeInsets.all(paddingColumn),
@@ -141,6 +147,8 @@ class DataGridViewState extends State<DataGridView> {
         ),
       ),
       GridColumn(
+        columnWidthMode: cwm,
+        autoFitPadding: afp,
         columnName: 'temperature',
         label: Container(
           padding: EdgeInsets.all(paddingColumn),
@@ -160,6 +168,8 @@ class DataGridViewState extends State<DataGridView> {
     if (systemName != cm.systemNameFipa || cm.siteInfo['type'] != 'B') {
       List<GridColumn> tempList = [
         GridColumn(
+          columnWidthMode: cwm,
+          autoFitPadding: afp,
           columnName: 'salinity',
           label: Container(
             padding: EdgeInsets.all(paddingColumn),
@@ -174,6 +184,8 @@ class DataGridViewState extends State<DataGridView> {
           ),
         ),
         GridColumn(
+          columnWidthMode: cwm,
+          autoFitPadding: afp,
           columnName: 'oxygen',
           label: Container(
             padding: EdgeInsets.all(paddingColumn),
@@ -190,9 +202,11 @@ class DataGridViewState extends State<DataGridView> {
       ];
       list.addAll(tempList);
 
-      if (systemName == cm.systemNameSeaweed || (systemName == cm.systemNameFipa && cm.siteInfo['type'] == 'B')) {
+      if (systemName == cm.systemNameSeaweed) {
         list.add(
           GridColumn(
+            columnWidthMode: cwm,
+            autoFitPadding: afp,
             columnName: 'light',
             label: Container(
               padding: EdgeInsets.all(paddingColumn),
@@ -207,54 +221,76 @@ class DataGridViewState extends State<DataGridView> {
             ),
           ),
         );
-
-        if (systemName == cm.systemNameFipa && cm.siteInfo['type'] == 'B') {
-          list.addAll([
-            GridColumn(
-              columnName: 'ntu',
-              label: Container(
-                padding: EdgeInsets.all(paddingColumn),
-                alignment: Alignment.center,
-                child: Text(
-                  'NTU',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: fontSizeHeader,
-                  ),
-                ),
-              ),
-            ),
-            GridColumn(
-              columnName: 'ph',
-              label: Container(
-                padding: EdgeInsets.all(paddingColumn),
-                alignment: Alignment.center,
-                child: Text(
-                  'pH',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: fontSizeHeader,
-                  ),
-                ),
-              ),
-            ),
-            GridColumn(
-              columnName: 'chlorophyll',
-              label: Container(
-                padding: EdgeInsets.all(paddingColumn),
-                alignment: Alignment.center,
-                child: Text(
-                  'Chlo.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: fontSizeHeader,
-                  ),
-                ),
-              ),
-            ),
-          ]);
-        }
       }
+    } else if (systemName == cm.systemNameFipa && cm.siteInfo['type'] == 'B') {
+      list.addAll(
+        [
+          GridColumn(
+            columnWidthMode: cwm,
+            autoFitPadding: afp,
+            columnName: 'light',
+            label: Container(
+              padding: EdgeInsets.all(paddingColumn),
+              alignment: Alignment.center,
+              child: Text(
+                '일사량',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: fontSizeHeader,
+                ),
+              ),
+            ),
+          ),
+          GridColumn(
+            columnWidthMode: cwm,
+            autoFitPadding: afp,
+            columnName: 'ntu',
+            label: Container(
+              padding: EdgeInsets.all(paddingColumn),
+              alignment: Alignment.center,
+              child: Text(
+                'NTU',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: fontSizeHeader,
+                ),
+              ),
+            ),
+          ),
+          GridColumn(
+            columnWidthMode: cwm,
+            autoFitPadding: afp,
+            columnName: 'ph',
+            label: Container(
+              padding: EdgeInsets.all(paddingColumn),
+              alignment: Alignment.center,
+              child: Text(
+                'pH',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: fontSizeHeader,
+                ),
+              ),
+            ),
+          ),
+          GridColumn(
+            columnWidthMode: cwm,
+            autoFitPadding: afp,
+            columnName: 'chlorophyll',
+            label: Container(
+              padding: EdgeInsets.all(paddingColumn),
+              alignment: Alignment.center,
+              child: Text(
+                'Chlo.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: fontSizeHeader,
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
     }
     return list;
   }
@@ -337,16 +373,35 @@ class BuoyDataSource extends DataGridSource {
   }
 
   List<DataGridCell<String>> setDataGridRow(SensorDataForGrid e) {
-    List<DataGridCell<String>> list = [
-      DataGridCell<String>(columnName: 'layer', value: e.no),
-      DataGridCell<String>(columnName: 'depth', value: e.depth),
-      DataGridCell<String>(columnName: 'temperature', value: e.temperature),
-      DataGridCell<String>(columnName: 'salinity', value: e.salinity),
-      DataGridCell<String>(columnName: 'oxygen', value: e.oxygen)
-    ];
-    if (cm.siteInfo['system_name'].toString() == cm.systemNameSeaweed) {
-      list.add(DataGridCell<String>(columnName: 'light', value: e.light));
+    List<DataGridCell<String>> list = [];
+
+    if (cm.siteInfo['system_name'].toString() == cm.systemNameFipa && cm.siteInfo['type'] == 'B') {
+      list.addAll(
+        [
+          DataGridCell<String>(columnName: 'layer', value: e.no),
+          DataGridCell<String>(columnName: 'depth', value: e.depth),
+          DataGridCell<String>(columnName: 'temperature', value: e.temperature),
+          DataGridCell<String>(columnName: 'light', value: e.light),
+          DataGridCell<String>(columnName: 'ntu', value: e.ntu),
+          DataGridCell<String>(columnName: 'ph', value: e.ph),
+          DataGridCell<String>(columnName: 'chlorophyll', value: e.chlorophyll),
+        ],
+      );
+    } else {
+      list.addAll(
+        [
+          DataGridCell<String>(columnName: 'layer', value: e.no),
+          DataGridCell<String>(columnName: 'depth', value: e.depth),
+          DataGridCell<String>(columnName: 'temperature', value: e.temperature),
+          DataGridCell<String>(columnName: 'salinity', value: e.salinity),
+          DataGridCell<String>(columnName: 'oxygen', value: e.oxygen)
+        ],
+      );
+      if (cm.siteInfo['system_name'].toString() == cm.systemNameSeaweed) {
+        list.add(DataGridCell<String>(columnName: 'light', value: e.light));
+      }
     }
+
     return list;
   }
 
@@ -380,9 +435,9 @@ class BuoyDataSource extends DataGridSource {
           TextStyle? getTextStyle() {
             double data = double.parse(e.value.toString());
             if (data <= 0) {
-              return const TextStyle(color: Colors.white, fontSize: 16);
+              return const TextStyle(color: Colors.white, fontSize: 15);
             }
-            return const TextStyle(fontSize: 16);
+            return const TextStyle(fontSize: 15);
           }
 
           return Container(

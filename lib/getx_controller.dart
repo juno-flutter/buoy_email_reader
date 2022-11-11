@@ -50,26 +50,8 @@ class GetMainController extends GetxController {
     int offset = 7;
     for (int ii = 0; ii < layer; ii++) {
       List<String> strSensorData = strTemp[ii + offset].split('_');
-      if (4 <= strSensorData.length && strSensorData.length <= 5) {
-        // 빈산소 = 4, 해조류 = 5, 어항공단 = 4
-        SensorDataForGrid sensor = SensorDataForGrid(
-          no: (ii + 1).toString(),
-          depth: strSensorData[0],
-          temperature: strSensorData[1],
-          salinity: strSensorData[2],
-          oxygen: strSensorData[3],
-        );
-        if (siteInfo['system_name'] == systemNameSeaweed) {
-          // sensor.addLight(strSensorData[4]);
-          sensor.light = strSensorData[4];
-        }
-        // else if (siteInfo['system_name'] == systemNameFipa && siteInfo['type'] == 'B') {
-        //   sensor.light = strSensorData[4];
-        //   sensor.chlorophyll = strSensorData[5];
-        // }
-        listSensorData.add(sensor);
-      }
-      else {  // 어항공단 System B
+      // if (4 <= strSensorData.length && strSensorData.length <= 5) {
+      if (siteInfo['system_name'] == systemNameFipa && siteInfo['type'] == 'B') {
         SensorDataForGrid sensor = SensorDataForGrid(
           no: (ii + 1).toString(),
           depth: strSensorData[0],
@@ -79,6 +61,20 @@ class GetMainController extends GetxController {
           light: strSensorData[4],
           chlorophyll: strSensorData[5],
         );
+        listSensorData.add(sensor);
+      }
+      else {
+        SensorDataForGrid sensor = SensorDataForGrid(
+          no: (ii + 1).toString(),
+          depth: strSensorData[0],
+          temperature: strSensorData[1],
+          salinity: strSensorData[2],
+          oxygen: strSensorData[3],
+        );
+        if (siteInfo['system_name'] == systemNameSeaweed) {
+          sensor.light = strSensorData[4];
+          // sensor.addLight(strSensorData[4]);         sensor.light = strSensorData[4];
+        }
         listSensorData.add(sensor);
       }
     }
