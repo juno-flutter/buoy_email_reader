@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'datagrid_view.dart';
 import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
 import 'getx_controller.dart';
+import 'dart:io' show Platform;
+
 
 // import 'package:buoy_email_reader/color_schemes.g.dart';
 // import 'package:google_fonts/google_fonts.dart';
@@ -496,7 +498,16 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const appbarRadius = 20.0;
+    const appbarRadius = 60.0;
+
+    double paddingTop;
+    if (Platform.isAndroid) {
+      paddingTop = 90;
+    }
+    else {
+      paddingTop = 120;
+    }
+
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.onPrimary,
@@ -509,11 +520,13 @@ class MainPage extends StatelessWidget {
         ),
       ),
       child: Scaffold(
+        extendBody: true,
+        extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           leading: null,
-          // backgroundColor: Theme.of(context).colorScheme.primary,
-          backgroundColor: const Color.fromRGBO(14, 6, 117, 0.8),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          // backgroundColor: const Color.fromRGBO(14, 6, 117, 0.9),
           centerTitle: true,
           title: Text(
             '지마텍 부이 자료',
@@ -545,7 +558,7 @@ class MainPage extends StatelessWidget {
           radius: const Radius.circular(8),
           // thumbVisibility: true,
           child: ListView.separated(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            padding: EdgeInsets.only(left: 15, right: 15, top: paddingTop, bottom: 15),
             itemCount: mapBuoyInfo.length,
             itemBuilder: (BuildContext context, int i) {
               var thisSiteInfo = mapBuoyInfo[mapBuoyInfo.keys.toList()[i]]!;
