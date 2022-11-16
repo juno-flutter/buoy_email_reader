@@ -21,7 +21,7 @@ class DataGridViewState extends State<DataGridView> {
   // String siteID = '';
   late BuoyDataSource buoyDataSource;
 
-  Color setBackgroundColor() {
+  Color getBackgroundColor() {
     if (cm.siteInfo['system_name'].toString() == cm.systemNameSeaweed) {
       return cm.colorSeaweed;
     } else if (cm.siteInfo['system_name'].toString() == cm.systemNameFipa) {
@@ -47,19 +47,19 @@ class DataGridViewState extends State<DataGridView> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Text(
-          '풍향: $wd°',
+          '풍향:$wd°',
           style: const TextStyle(fontSize: fontSize),
         ),
         Text(
-          '풍속: $ws㎧',
+          '풍속:$ws㎧',
           style: const TextStyle(fontSize: fontSize),
         ),
         Text(
-          '기온: $at℃',
+          '기온:$at℃',
           style: const TextStyle(fontSize: fontSize),
         ),
         Text(
-          '배터리: ${bt}V',
+          '배터리:${bt}V',
           style: const TextStyle(fontSize: fontSize),
         ),
       ],
@@ -116,11 +116,19 @@ class DataGridViewState extends State<DataGridView> {
   }
 
   List<GridColumn> setGridColumn(double paddingColumn, double fontSizeHeader) {
-    var cwm = ColumnWidthMode.none;
+    ColumnWidthMode cwm, cwm2;
+    if (MediaQuery.of(context).orientation == Orientation.portrait && cm.siteInfo['type'] == 'B'){
+      cwm = ColumnWidthMode.none;
+      cwm2 = ColumnWidthMode.fitByCellValue;
+    }
+    else {
+      cwm = ColumnWidthMode.none;
+      cwm2 = ColumnWidthMode.none;
+    }
     var afp = const EdgeInsets.all(12);
     List<GridColumn> list = [
       GridColumn(
-        columnWidthMode: cwm,
+        columnWidthMode: cwm2,
         autoFitPadding: afp,
         columnName: 'layer',
         label: Container(
@@ -133,7 +141,7 @@ class DataGridViewState extends State<DataGridView> {
         ),
       ),
       GridColumn(
-        columnWidthMode: cwm,
+        columnWidthMode: cwm2,
         autoFitPadding: afp,
         columnName: 'depth',
         label: Container(
@@ -297,14 +305,14 @@ class DataGridViewState extends State<DataGridView> {
 
   @override
   Widget build(BuildContext context) {
-    const double heightHeader = 70;
+    const double heightHeader = 60;
     const double fontSizeHeader = 15;
     const double paddingColumn = 2.0;
 
     return Scaffold(
       appBar: AppBar(
-        // toolbarHeight: 60,
-        backgroundColor: setBackgroundColor(),
+        toolbarHeight: 70,
+        backgroundColor: getBackgroundColor(),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -346,10 +354,10 @@ class DataGridViewState extends State<DataGridView> {
         columns: setGridColumn(paddingColumn, fontSizeHeader),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: setBackgroundColor(),
+        backgroundColor: getBackgroundColor(),
         onPressed: () => Get.back(),
         mini: false,
-        elevation: 0,
+        elevation: 3,
         child: const Icon(Icons.arrow_back),
       ),
     );
